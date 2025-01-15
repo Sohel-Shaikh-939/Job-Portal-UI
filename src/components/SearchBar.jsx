@@ -69,7 +69,7 @@ const SearchBar = () => {
 
         {/* This is the part which will be used in small screen sizes */}
         {showResponsiveSearch && (
-          <div className="max-w-96 flex flex-col py-4 bg-white px-5 rounded-xl text-lg z-50 align-middle space-y-5 transition-all">
+          <div className="max-w-96 flex flex-col py-4 bg-white px-5 rounded-xl text-lg z-50 align-middle space-y-5 transition-all md:hidden">
             <div className="flex items-center gap-2">
               <IoIosSearch className="opacity-65" />
               <input
