@@ -102,7 +102,7 @@ const Home = () => {
       {/* Category Cards Section */}
       <section className="lg:py-28 lg:px-32 md:py-5 px-4 w-full bg-white md:grid lg:grid-cols-3 md:grid-cols-2 space-y-5 space-x-3 -z-50">
         {/* Text content */}
-        <div className="py-10 text-6xl max-w-96 m-h-72 font-bold leading-1 m-auto">
+        <div className="py-10 text-3xl text-center md:text-6xl max-w-96 m-h-72 font-bold leading-1 m-auto">
           Popular Searches on our site
         </div>
 
@@ -230,7 +230,7 @@ const Home = () => {
       </section>
 
       {/* Job Post card section for Employers */}
-      <section className="py-20 px-4 lg:px-36 ">
+      <section className="py-20 px-4 lg:px-36 ">  
         <a href="">
           <div className="w-full bg-[#EDFEFA] flex flex-col md:flex-row justify-between px-2 lg:px-24 py-5 lg:py-14 rounded-3xl border">
             <div className="flex flex-col md:justify-end order-2 md:order-none">

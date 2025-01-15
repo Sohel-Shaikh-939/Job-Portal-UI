@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Home from "./routes/Home";
 
@@ -6,6 +7,7 @@ const App = () => {
     <>
       <Header></Header>
       <Home></Home>
+      <Footer></Footer>
     </>
   );
 };
