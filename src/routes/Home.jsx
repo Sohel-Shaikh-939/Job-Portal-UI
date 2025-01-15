@@ -1,11 +1,12 @@
 import hero from "../assets/hero.png";
 import SearchBar from "../components/SearchBar";
-import {IoIosArrowForward} from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 import fresher from "../assets/fresher.webp";
 import international from "../assets/international.webp";
 import partTime from "../assets/part-time.webp";
 import women from "../assets/women.webp";
 import workFromHome from "../assets/work-from-home.webp";
+import twoPeople from "../assets/two-people.png";
 
 const Home = () => {
   const scrollData = [
@@ -98,8 +99,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Cards Section */}
-
+      {/* Category Cards Section */}
       <section className="lg:py-28 lg:px-32 md:py-5 px-4 w-full bg-white md:grid lg:grid-cols-3 md:grid-cols-2 space-y-5 space-x-3 -z-50">
         {/* Text content */}
         <div className="py-10 text-6xl max-w-96 m-h-72 font-bold leading-1 m-auto">
@@ -222,8 +222,39 @@ const Home = () => {
             <img
               src={international}
               alt=""
-              className="absolute right-2 bottom-0 w-40 md:w-48 -z-0"
+              className="absolute right-2 bottom-0 w-40
+               md:w-48 -z-0"
             />
+          </div>
+        </a>
+      </section>
+
+      {/* Job Post card section for Employers */}
+      <section className="py-20 px-4 lg:px-36 ">
+        <a href="">
+          <div className="w-full bg-[#EDFEFA] flex flex-col md:flex-row justify-between px-2 lg:px-24 py-5 lg:py-14 rounded-3xl border">
+            <div className="flex flex-col md:justify-end order-2 md:order-none">
+              <img src={twoPeople} alt="" className="w-72 md:w-96 lg:w-auto m-auto" />
+            </div>
+
+            <div className="flex flex-col justify-between py-12 m-auto md:m-0 text-center md:text-left gap-16">
+              <h1 className="text-lg md:text-xl font-bold pl-5 text-faintGreen ">
+                FOR EMPLOYERS
+              </h1>
+              <div className="flex flex-col gap-5">
+                <h1 className="text-4xl md:text-5xl font-bold text-green-900">
+                  Want to hire?
+                </h1>
+                <p className="font-semibold text-lg opacity-75 ">
+                  Find the best candidate from 5 crore+ active job seekers!
+                </p>
+                {/* Div for showing element like button */}
+                <div className="hover:bg-faintGreen hover:text-white transition-all duration-200 
+                w-full  md:max-w-72 px-4 py-2 flex justify-center items-center rounded-xl border border-faintGreen font-semibold text-lg text-faintGreen bg-white">
+                  Post job <IoIosArrowForward className="ml-3" />
+                </div>
+              </div>
+            </div>
           </div>
         </a>
       </section>
