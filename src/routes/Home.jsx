@@ -108,16 +108,27 @@ const Home = () => {
 
         {/* Box First Freshers*/}
         <a href="#">
-          <div className="h-72 max-h-72  max-w-96 py-10 px-7 flex flex-col justify-between hover:bg-gradient-to-t from-orange-200 to-orange-50 transition-all duration-150 border  hover:border-orange-500 rounded-3xl relative group m-auto">
+          <div
+            className="h-72 max-h-72  max-w-96 py-10 px-7 flex flex-col justify-between 
+          
+          
+          bg-gradient-to-t from-orange-200 to-orange-50 lg:bg-gradient-to-t lg:from-white lg:to-white lg:hover:bg-gradient-to-t hover:from-orange-200 hover:to-orange-50 transition-all duration-150 
+          
+          
+          border border-orange-500 lg:border-slate-200 lg:hover:border-orange-500
+          
+          
+          rounded-3xl relative group m-auto overflow-hidden"
+          >
             <div className="space-y-5 z-10">
               <h1 className="font-semibold opacity-75 ">TRENDING AT #1</h1>
-              <h1 className="text-2xl font-bold group-hover:text-orange-600">
+              <h1 className="text-2xl font-bold text-orange-600 lg:text-black lg:group-hover:text-orange-600">
                 Jobs for Freshers
               </h1>
             </div>
 
             <div className="z-10">
-              <button className="text-lg font-semibold py-2 px-4 rounded-xl group-hover:bg-orange-400 transition-all duration-200 group-hover:text-white flex items-center ">
+              <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-orange-400 lg:bg-transparent lg:group-hover:bg-orange-400 transition-all duration-200 text-white lg:text-black lg:group-hover:text-white flex items-center ">
                 View all
                 <IoIosArrowForward className="ml-3" />
               </button>
@@ -132,16 +143,22 @@ const Home = () => {
         </a>
 
         <a href="#">
-          <div className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between  rounded-3xl relative group hover:bg-gradient-to-t from-purple-200 to-purple-50 transition-all duration-150 border  hover:border-purple-500 m-auto">
+          <div
+            className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between  rounded-3xl relative group 
+          
+        bg-gradient-to-t from-purple-200 to-purple-50 lg:bg-gradient-to-t lg:from-white lg:to-white lg:hover:bg-gradient-to-t hover:from-purple-200 hover:to-purple-50 transition-all duration-150
+          
+          border border-purple-500 lg:border-slate-200 lg:hover:border-purple-500 m-auto overflow-hidden"
+          >
             <div className="space-y-5 z-10">
-              <h1 className="font-semibold opacity-75 ">TRENDING AT #2</h1>
-              <h1 className="text-2xl font-bold group-hover:text-purple-900">
+              <h1 className="font-semibold opacity-75">TRENDING AT #2</h1>
+              <h1 className="text-2xl font-bold text-purple-900 lg:text-black lg:group-hover:text-purple-900">
                 Work from home Jobs
               </h1>
             </div>
 
             <div className="z-10">
-              <button className="text-lg font-semibold py-2 px-4 rounded-xl group-hover:bg-purple-600 transition-all duration-200 group-hover:text-white flex items-center ">
+              <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-purple-600 lg:bg-transparent lg:group-hover:bg-purple-600 transition-all duration-200 text-white lg:text-black lg:group-hover:text-white flex items-center ">
                 View all
                 <IoIosArrowForward className="ml-3" />
               </button>
@@ -156,16 +173,22 @@ const Home = () => {
         </a>
 
         <a href="#">
-          <div className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between rounded-3xl relative group hover:bg-gradient-to-t from-red-200 to-red-50 transition-all duration-150 border  hover:border-red-500 m-auto">
+          <div
+            className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between rounded-3xl relative group 
+          
+          bg-gradient-to-t from-red-200 to-red-50 lg:bg-gradient-to-t lg:from-white lg:to-white lg:hover:bg-gradient-to-t hover:from-red-200 hover:to-red-50 
+          
+          transition-all duration-150 border border-red-500  lg:border-slate-200 lg:hover:border-red-500 m-auto"
+          >
             <div className="space-y-5 z-10">
               <h1 className="font-semibold opacity-75 ">TRENDING AT #3</h1>
-              <h1 className="text-2xl font-bold group-hover:text-red-600">
+              <h1 className="text-2xl font-bold text-red-600 lg:text-black lg:group-hover:text-red-600">
                 Part time Jobs
               </h1>
             </div>
 
             <div className="z-10">
-              <button className="text-lg font-semibold py-2 px-4 rounded-xl group-hover:bg-red-600 transition-all duration-200 group-hover:text-white flex items-center ">
+              <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-red-600 lg:bg-transparent lg:group-hover:bg-red-600 transition-all duration-200 text-white lg:text-black lg:group-hover:text-white flex items-center ">
                 View all
                 <IoIosArrowForward className="ml-3" />
               </button>
@@ -180,16 +203,22 @@ const Home = () => {
         </a>
 
         <a href="#">
-          <div className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between rounded-3xl relative group hover:bg-gradient-to-t from-green-200 to-green-50 transition-all duration-150 border  hover:border-green-500 m-auto">
+          <div
+            className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between rounded-3xl relative group 
+          
+          bg-gradient-to-t from-green-200 to-green-50 lg:bg-gradient-to-t lg:from-white lg:to-white lg:hover:bg-gradient-to-t hover:from-green-200 hover:to-green-50
+          
+          transition-all duration-150 border border-green-500 lg:border-slate-200 lg:hover:border-green-500 m-auto"
+          >
             <div className="space-y-5 z-10">
               <h1 className="font-semibold opacity-75 ">TRENDING AT #4</h1>
-              <h1 className="text-2xl font-bold group-hover:text-green-700">
+              <h1 className="text-2xl font-bold text-green-700 lg:text-black lg:group-hover:text-green-700">
                 Jobs for Women
               </h1>
             </div>
 
             <div className="z-10">
-              <button className="text-lg font-semibold py-2 px-4 rounded-xl group-hover:bg-green-400 transition-all duration-200 group-hover:text-white flex items-center ">
+              <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-green-400 lg:bg-transparent lg:group-hover:bg-green-400 transition-all duration-200 text-white lg:text-black lg:group-hover:text-white flex items-center ">
                 View all
                 <IoIosArrowForward className="ml-3" />
               </button>
@@ -204,16 +233,22 @@ const Home = () => {
         </a>
 
         <a href="#">
-          <div className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between rounded-3xl relative group hover:bg-gradient-to-t from-blue-200 to-blue-50 transition-all duration-150 border  hover:border-blue-500 m-auto">
+          <div
+            className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between rounded-3xl relative group 
+          
+          bg-gradient-to-t from-blue-200 to-blue-50 lg:bg-gradient-to-t lg:from-white lg:to-white lg:hover:bg-gradient-to-t hover:from-blue-200 hover:to-blue-50
+          
+          transition-all duration-150 border border-blue-500 lg:border-slate-200  lg:hover:border-blue-500 m-auto"
+          >
             <div className="space-y-5 z-10">
               <h1 className="font-semibold opacity-75 ">TRENDING AT #5</h1>
-              <h1 className="text-2xl font-bold group-hover:text-blue-600">
+              <h1 className="text-2xl font-bold text-blue-600 lg:text-black lg:group-hover:text-blue-600">
                 International Jobs
               </h1>
             </div>
 
             <div className="z-10">
-              <button className="text-lg font-semibold py-2 px-4 rounded-xl group-hover:bg-blue-400 transition-all duration-200 group-hover:text-white flex items-center ">
+              <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-blue-400 lg:bg-transparent lg:group-hover:bg-blue-400 transition-all duration-200 text-white lg:text-black group-hover:text-white flex items-center ">
                 View all
                 <IoIosArrowForward className="ml-3" />
               </button>
@@ -230,11 +265,15 @@ const Home = () => {
       </section>
 
       {/* Job Post card section for Employers */}
-      <section className="py-20 px-4 lg:px-36 ">  
+      <section className="py-20 px-4 lg:px-36 ">
         <a href="">
           <div className="w-full bg-[#EDFEFA] flex flex-col md:flex-row justify-between px-2 lg:px-24 py-5 lg:py-14 rounded-3xl border">
             <div className="flex flex-col md:justify-end order-2 md:order-none">
-              <img src={twoPeople} alt="" className="w-72 md:w-96 lg:w-auto m-auto" />
+              <img
+                src={twoPeople}
+                alt=""
+                className="w-72 md:w-96 lg:w-auto m-auto"
+              />
             </div>
 
             <div className="flex flex-col justify-between py-12 m-auto md:m-0 text-center md:text-left gap-16">
@@ -249,8 +288,10 @@ const Home = () => {
                   Find the best candidate from 5 crore+ active job seekers!
                 </p>
                 {/* Div for showing element like button */}
-                <div className="hover:bg-faintGreen hover:text-white transition-all duration-200 
-                w-full  md:max-w-72 px-4 py-2 flex justify-center items-center rounded-xl border border-faintGreen font-semibold text-lg text-faintGreen bg-white">
+                <div
+                  className="hover:bg-faintGreen hover:text-white transition-all duration-200 
+                w-full  md:max-w-72 px-4 py-2 flex justify-center items-center rounded-xl border border-faintGreen font-semibold text-lg text-faintGreen bg-white"
+                >
                   Post job <IoIosArrowForward className="ml-3" />
                 </div>
               </div>
