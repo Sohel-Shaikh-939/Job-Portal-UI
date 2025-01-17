@@ -12,8 +12,8 @@ const SearchBar = () => {
     
   return (
     <>
-      <form action="" className="mt-7 z-50">
-        <div className="hidden md:flex md:flex-col lg:flex-row py-4 bg-white w-fit px-5 rounded-xl text-lg md:items-center z-50 md:w-96 lg:w-fit md:space-y-3 lg:space-y-0 align-middle">
+      <form action="" className="mt-7 z-40">
+        <div className="hidden md:flex md:flex-col lg:flex-row py-4 bg-white w-fit px-5 rounded-xl text-lg md:items-center z-50 md:w-96 lg:w-fit md:space-y-3 lg:space-y-0 align-middle border border-slate-200">
           <div className="flex items-center gap-2">
             <IoIosSearch className="opacity-65" />
             <input

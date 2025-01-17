@@ -1,4 +1,4 @@
-import logo from "../assets/logo.webp";
+import logo from "../../assets/logo.webp";
 import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaTwitterSquare } from "react-icons/fa";

@@ -1,12 +1,12 @@
-import hero from "../assets/hero.png";
-import SearchBar from "../components/SearchBar";
+import hero from "../../assets/hero.png";
+import SearchBar from "../../components/SearchBar/SearchBar";
 import { IoIosArrowForward } from "react-icons/io";
-import fresher from "../assets/fresher.webp";
-import international from "../assets/international.webp";
-import partTime from "../assets/part-time.webp";
-import women from "../assets/women.webp";
-import workFromHome from "../assets/work-from-home.webp";
-import twoPeople from "../assets/two-people.png";
+import fresher from "../../assets/fresher.webp";
+import international from "../../assets/international.webp";
+import partTime from "../../assets/part-time.webp";
+import women from "../../assets/women.webp";
+import workFromHome from "../../assets/work-from-home.webp";
+import twoPeople from "../../assets/two-people.png";
 
 const Home = () => {
   const scrollData = [
@@ -78,8 +78,8 @@ const Home = () => {
 
           {/* Scroll Animation  */}
           <div className="absolute bottom-5 md:bottom-12 flex gap-10 anim">
-            {scrollData.map((data) => (
-              <div className="bg-white w-72 flex gap-2 rounded-s-full rounded-e-full p-4 items-center">
+            {scrollData.map((data,ind) => (
+              <div className="bg-white w-72 flex gap-2 rounded-s-full rounded-e-full p-4 items-center" key={ind}>
                 <div className="rounded-full overflow-hidden w-12 h-12 ">
                   <img src={data.img} alt="" className="w-full" />
                 </div>

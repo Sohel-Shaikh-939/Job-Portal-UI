@@ -1,10 +1,11 @@
-import logo from "../assets/logo.webp";
+import logo from "../../assets/logo.webp";
 import { PiListBold } from "react-icons/pi";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { PiBagSimple } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import { CiLogout } from "react-icons/ci";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -31,16 +32,20 @@ const Header = () => {
             onClick={handleShowOptClick}
           />
           {/* for logo */}
-          <div className="w-10 mr-0 md:mr-14 md:w-16 rounded-lg md:rounded-2xl overflow-hidden">
-            <img src={logo} alt="hello world" className="w-full " />
-          </div>
+          <Link to="/">
+            <div className="w-10 mr-0 md:mr-14 md:w-16 rounded-lg md:rounded-2xl overflow-hidden">
+              <img src={logo} alt="hello world" className="w-full " />
+            </div>
+          </Link>
           {/* ul for options */}
           <ul className="hidden md:flex space-x-8 text-slate-900 text-base leading-10 py-5 font-semibold  ">
             <li>
-              <a>Jobs</a>
+              <Link to="/Jobs" className="cursor-pointer">
+                Jobs
+              </Link>
             </li>
             <li>
-              <a>Companies</a>
+              <Link className="cursor-pointer">Companies</Link>
             </li>
           </ul>
         </div>
@@ -64,24 +69,26 @@ const Header = () => {
         } md:hidden flex gap-20`}
       >
         <div className="h-full w-full bg-white py-9 rounded-r-3xl space-y-4 z-50">
-          <div className="overflow-hidden pl-6">
-            <img src={logo} alt="" className="w-14 rounded-2xl" />
-          </div>
+          <Link to="/" onClick={handleCloseOptClick}>
+            <div className="overflow-hidden pl-6">
+              <img src={logo} alt="" className="w-14 rounded-2xl" />
+            </div>
+          </Link>
 
           {/* Options list */}
           <div>
             <ul className="space-y-1 text-slate-900 text-base leading-10 py-5 font-semibold  ">
-              <li>
-                <a className="flex gap-3 items-center pl-6">
+              <li onClick={handleCloseOptClick}>
+                <Link to="/Jobs" className="flex gap-3 items-center pl-6">
                   <HiOutlineBuildingOffice2 className="text-xl" />
                   Jobs
-                </a>
+                </Link>
               </li>
-              <li>
-                <a className="flex gap-3 items-center pl-6">
+              <li onClick={handleCloseOptClick}>
+                <Link className="flex gap-3 items-center pl-6">
                   <PiBagSimple className="text-xl" />
                   Companies
-                </a>
+                </Link>
               </li>
             </ul>
             <div className="border-b border-b-black border-opacity-20"></div>
