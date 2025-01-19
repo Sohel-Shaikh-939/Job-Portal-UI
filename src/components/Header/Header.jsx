@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
 
   const [showSideBar,setShowSideBar] = useState(false);
+  const [showLogin,setShowLogin] = useState(false);
 
   const handleShowOptClick = () => {
     setShowSideBar(true);
@@ -21,6 +22,14 @@ const Header = () => {
   const handleCloseOptClick = () => {
     setShowSideBar(false);
   }
+
+  const handleLoginOpt = () => {
+    setShowLogin(true);
+  }
+
+  const handleHideLogin = () => {
+    setShowLogin(false);
+  };
 
   return (
     <>
@@ -56,7 +65,10 @@ const Header = () => {
           <button className="text-xs bg-transparent text-green-900 font-semibold md:text-base md:w-20 lg:w-fit leading-10">
             Employer Login
           </button>
-          <button className="text-white py-2 px-3 text-xs md:text-base md:w-32 lg:w-fit bg-faintGreen  rounded  font-semibold text-[.95rem] ml-4 hover:text-faintGreen hover:bg-faintGray border-2 border-faintGreen">
+          <button
+            className="text-white py-2 px-3 text-xs md:text-base md:w-32 lg:w-fit bg-faintGreen  rounded  font-semibold text-[.95rem] ml-4 hover:text-faintGreen hover:bg-faintGray border-2 border-faintGreen"
+            onClick={handleLoginOpt}
+          >
             Candidate Login
           </button>
         </div>
@@ -101,6 +113,65 @@ const Header = () => {
           {showSideBar && <RxCross1 onClick={handleCloseOptClick} />}
         </div>
       </nav>
+
+      {/* Login Popup */}
+
+      <section
+        className={`fixed ${
+          showLogin ? "flex" : "hidden"
+        } w-full h-full bg-[#08080876] top-0 left-0 right-0 bottom-0 z-50 justify-center items-end md:items-center`}
+      >
+        <form action="" className="hidden">
+          <div className="w-[100vw] md:max-w-md relative bg-white p-8 rounded-lg flex flex-col gap-5  ">
+            <h1 className="text-xl font-bold">Enter your email</h1>
+            <input
+              type="email"
+              name=""
+              id=""
+              placeholder="Eg: xyz@gmail.com"
+              className="outline-faintGreen border border-slate-300 p-2 rounded-lg"
+            />
+            <p className="text-sm opacity-65">Be a part of our community</p>
+            <hr />
+            <input
+              type="submit"
+              value="Next"
+              className="bg-faintGreen text-white p-2 w-full rounded-md outline-none font-semibold text-lg "
+            />
+            <div className="absolute bg-black text-white md:text-black md:bg-transparent p-2 rounded-full right-5 -top-10 md:top-5 cursor-pointer">
+              <RxCross1
+                className="text-base md:text-lg"
+                onClick={handleHideLogin}
+              />
+            </div>
+          </div>
+        </form>
+
+        <form action="">
+          <div className="w-[100vw] md:max-w-md relative bg-white p-8 rounded-lg flex flex-col gap-5  ">
+            <h1 className="text-xl font-bold">Enter OTP</h1>
+            <input
+              type="number"
+              name=""
+              id=""
+              placeholder="Eg: xyz@gmail.com"
+              className="outline-faintGreen border border-slate-300 p-2 rounded-lg"
+            />
+            <hr />
+            <input
+              type="submit"
+              value="Verify OTP"
+              className="bg-faintGreen text-white p-2 w-full rounded-md outline-none font-semibold text-lg "
+            />
+            <div className="absolute bg-black text-white md:text-black md:bg-transparent p-2 rounded-full right-5 -top-10 md:top-5 cursor-pointer">
+              <RxCross1
+                className="text-base md:text-lg"
+                onClick={handleHideLogin}
+              />
+            </div>
+          </div>
+        </form>
+      </section>
     </>
   );
 };
