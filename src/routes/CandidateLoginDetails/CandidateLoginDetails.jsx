@@ -4,7 +4,7 @@ const CandidateLoginDetails = () => {
         <section className="w-full bg-faintGray p-4 md:py-10 flex justify-center">
           <form action="">
             <div className="bg-white p-5 rounded-lg space-y-3 md:w-[60vw] lg:w-[40vw] border border-slate-300 shadow-xl">
-              <h1 className="text-3xl font-semibold">Fill Deatils</h1>
+              <h1 className="text-3xl font-semibold">Fill Details</h1>
               <hr />
 
               <div className="space-y-8 ">
@@ -26,7 +26,6 @@ const CandidateLoginDetails = () => {
                     type="date"
                     name=""
                     id=""
-                    value="Choose Date"
                     className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
                   />
                 </div>
@@ -43,6 +42,24 @@ const CandidateLoginDetails = () => {
                       <label htmlFor="female">Female</label>
                     </div>
                   </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <h1 className="text-lg font-semibold ">Education</h1>
+                  <select
+                    name=""
+                    id=""
+                    className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
+                  >
+                    <option value="No Education">No Education</option>
+                    <option value="10th Pass">10th Pass</option>
+                    <option value="12th Pass">12th Pass</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="ITI">ITI</option>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Post Graduate">Post Graduate</option>
+                  </select>
                 </div>
 
                 <div className="flex flex-col gap-2">
