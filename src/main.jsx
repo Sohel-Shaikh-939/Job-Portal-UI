@@ -13,6 +13,9 @@ import EmployerLoginDetails from './routes/EmployerLoginDetails/EmployerLoginDet
 import Employer from './routes/Employer/Employer'
 import { Provider } from 'react-redux'
 import store from './store'
+import EmployerJobsList from './routes/EmployerJobsList/EmployerJobsList'
+import EmployerCandidates from './routes/EmployerCandidates/EmployerCandidates'
+import EmployerInterested from './routes/EmployerInterested/EmployerInterested'
 
 const route = createBrowserRouter([
   {
@@ -47,7 +50,23 @@ const route = createBrowserRouter([
         path: "/Employer",
         element: <Employer />,
         children: [
-        ]
+          {
+            path: "/Employer/",
+            element: <EmployerJobsList />,
+          },
+          {
+            path: "/Employer/EmployerJobsList",
+            element: <EmployerJobsList />,
+          },
+          {
+            path: "/Employer/EmployerCandidates",
+            element: <EmployerCandidates />,
+          },
+          {
+            path: "/Employer/EmployerInterested",
+            element: <EmployerInterested />,
+          },
+        ],
       },
     ],
   },
