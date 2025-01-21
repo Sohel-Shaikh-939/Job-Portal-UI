@@ -6,21 +6,22 @@ import { RxCross1 } from "react-icons/rx";
 import { CiLogout } from "react-icons/ci";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { headerSliceAction } from "./headerSlice";
 
 const Header = () => {
 
   const [showSideBar,setShowSideBar] = useState(false);
   const [showLogin,setShowLogin] = useState(false);
+  const {isInEmployerSection} = useSelector(store => store.Header);
+  const dispatch = useDispatch();
 
   const handleShowOptClick = () => {
-    setShowSideBar(true);
+    isInEmployerSection ? dispatch(headerSliceAction.setShowEmployerOpt(true)) : setShowSideBar(true);
   };
 
   const handleCloseOptClick = () => {
-    setShowSideBar(false);
+    setShowSideBar(false);  
   }
 
   const handleLoginOpt = () => {
@@ -33,9 +34,15 @@ const Header = () => {
 
   return (
     <>
-      <nav className="sticky top-0 left-0 right-0 lg:px-32 py-1 px-5 pt-4 md:pt-0 w-full flex items-center justify-between bg-faintGray z-50">
+      <nav
+        className={`sticky top-0 left-0 right-0 lg:px-32 py-1 px-5 pt-4 md:pt-0 w-full flex items-center justify-between z-50 ${
+          isInEmployerSection
+            ? "bg-white"
+            : "bg-faintGray"
+        }`}
+      >
         {/* left section of header */}
-        <div className="flex justify-between w-26 items-center">
+        <div className="flex justify-between w-26 items-center py-5">
           <PiListBold
             className="text-2xl mr-2  md:hidden"
             onClick={handleShowOptClick}
@@ -47,16 +54,18 @@ const Header = () => {
             </div>
           </Link>
           {/* ul for options */}
-          <ul className="hidden md:flex space-x-8 text-slate-900 text-base leading-10 py-5 font-semibold  ">
-            <li>
-              <Link to="/Jobs" className="cursor-pointer">
-                Jobs
-              </Link>
-            </li>
-            <li>
-              <Link className="cursor-pointer">Companies</Link>
-            </li>
-          </ul>
+          {!isInEmployerSection && (
+            <ul className="hidden md:flex space-x-8 text-slate-900 text-base leading-10  font-semibold  ">
+              <li>
+                <Link to="/Jobs" className="cursor-pointer">
+                  Jobs
+                </Link>
+              </li>
+              <li>
+                <Link className="cursor-pointer">Companies</Link>
+              </li>
+            </ul>
+          )}
         </div>
 
         {/* Right section */}

@@ -6,6 +6,7 @@ import { useState } from "react";
 
 const CandidateProfile = () => {
     const [showEdit,setShowEdit] = useState(false);
+    const [showPicEdit, setShowPicEdit] = useState(false);
 
     const handleHideEdit = () => {
         setShowEdit(false);
@@ -14,6 +15,20 @@ const CandidateProfile = () => {
     const handleShowEdit = () => {
         setShowEdit(true);
     };
+
+    const showPicSaveBTN = () => {
+      setShowPicEdit(true);
+    }
+
+    const hidePicSaveBTN = () => {
+      setShowPicEdit(false);
+    }
+
+    const handleProfileChange = (e) => {
+      e.preventDefault();
+      console.log(e)
+      hidePicSaveBTN();
+    }
 
     return (
       <>
@@ -315,17 +330,23 @@ const CandidateProfile = () => {
                 <div className="p-9 bg-white rounded-xl flex gap-8">
                   <div className="flex flex-col items-center gap-3">
                     <img src={tmp} alt="" className="w-20 rounded-full" />
-                    <form action="">
+                    <form action="" className="flex flex-col gap-3" onSubmit={handleProfileChange}>
                       <label
                         htmlFor="pic"
                         className="text-sm font-semibold opacity-90 text-faintGreen cursor-pointer"
+                        onClick={showPicSaveBTN}
                       >
                         Change Photo
                       </label>
                       <input type="file" name="" id="pic" className="hidden" />
-                      <button className="py-1 px-3 bg-faintGreen rounded-lg outline-none border border-slate-300 text-whiten hidden">
-                        Save
-                      </button>
+                      {showPicEdit && (
+                        <button type="submit"
+                          className="py-1 px-3 bg-faintGreen rounded-lg outline-none border border-slate-300 text-whiten text-white"
+                          
+                        >
+                          Save
+                        </button>
+                      )}
                     </form>
                   </div>
                   <div className="flex flex-col">
@@ -369,7 +390,10 @@ const CandidateProfile = () => {
               </div>
 
               <div className="py-7 px-4 md:p-9 bg-white rounded-xl flex flex-col gap-8 relative">
-                <button className="absolute top-4 right-4 z-50 flex gap-1 items-center font-semibold text-faintGreen" onClick={handleShowEdit}>
+                <button
+                  className="absolute top-4 right-4 z-50 flex gap-1 items-center font-semibold text-faintGreen"
+                  onClick={handleShowEdit}
+                >
                   <FaPen className="text-xs" />
                   Edit
                 </button>

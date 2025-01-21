@@ -9,6 +9,10 @@ import Jobs from './routes/Jobs/Jobs'
 import Job from './routes/Job/Job'
 import CandidateLoginDetails from './routes/CandidateLoginDetails/CandidateLoginDetails'
 import CandidateProfile from './routes/CandidateProfile/CandidateProfile'
+import EmployerLoginDetails from './routes/EmployerLoginDetails/EmployerLoginDetails'
+import Employer from './routes/Employer/Employer'
+import { Provider } from 'react-redux'
+import store from './store'
 
 const route = createBrowserRouter([
   {
@@ -35,14 +39,26 @@ const route = createBrowserRouter([
         path: "/CandidateProfile",
         element: <CandidateProfile />,
       },
+      {
+        path: "/EmployerLogin",
+        element: <EmployerLoginDetails />,
+      },
+      {
+        path: "/Employer",
+        element: <Employer />,
+        children: [
+        ]
+      },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={route}>
-      <App />
-    </RouterProvider>
+    <Provider store={store}>
+      <RouterProvider router={route}>
+        <App />
+      </RouterProvider>
+    </Provider>
   </StrictMode>
 );
