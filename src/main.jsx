@@ -16,6 +16,8 @@ import store from './store'
 import EmployerJobsList from './routes/EmployerJobsList/EmployerJobsList'
 import EmployerCandidates from './routes/EmployerCandidates/EmployerCandidates'
 import EmployerInterested from './routes/EmployerInterested/EmployerInterested'
+import JobPost from './routes/JobPost/JobPost'
+import EmployerProfile from './routes/EmployerProfile/EmployerProfile'
 
 const route = createBrowserRouter([
   {
@@ -47,6 +49,10 @@ const route = createBrowserRouter([
         element: <EmployerLoginDetails />,
       },
       {
+        path: "/JobPost",
+        element: <JobPost />,
+      },
+      {
         path: "/Employer",
         element: <Employer />,
         children: [
@@ -65,6 +71,10 @@ const route = createBrowserRouter([
           {
             path: "/Employer/EmployerInterested",
             element: <EmployerInterested />,
+          },
+          {
+            path: "/Employer/Profile",
+            element: <EmployerProfile  />,
           },
         ],
       },

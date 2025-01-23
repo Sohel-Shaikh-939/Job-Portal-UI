@@ -1,4 +1,4 @@
-const CandidateLoginDetails = () => {
+const JobPost = () => {
     return (
       <>
         <section className="w-full bg-faintGray p-4 md:py-10 flex justify-center">
@@ -7,9 +7,9 @@ const CandidateLoginDetails = () => {
               <h1 className="text-3xl font-semibold">Fill Details</h1>
               <hr />
 
-              <div className="space-y-8 ">
-                <div className="flex flex-col gap-2 border-black">
-                  <h1 className="text-lg font-semibold ">Name</h1>
+              <div className="space-y-8">
+                <div className="flex flex-col border-black gap-2">
+                  <h1 className="text-lg font-semibold ">Job title</h1>
                   <input
                     type="text"
                     name=""
@@ -18,16 +18,38 @@ const CandidateLoginDetails = () => {
                   />
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <h1 className="text-lg font-semibold ">
-                    Date of Birth (DOB)
-                  </h1>
-                  <input
-                    type="date"
-                    name=""
-                    id=""
-                    className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
-                  />
+                <div className="flex flex-col border-black gap-2">
+                  <h1 className="text-lg font-semibold ">Salary</h1>
+                  <div className="flex justify-between md:flex-row flex-col gap-4 md:gap-0">
+                    <div className="flex flex-col gap-1">
+                      <label
+                        htmlFor="min"
+                        className="font-semibold opacity-80 text-sm"
+                      >
+                        Min.
+                      </label>
+                      <input
+                        type="number"
+                        name="minsal"
+                        id="min"
+                        className="py-1 px-4 border border-slate-400 rounded-md outline-faintGreen "
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label
+                        htmlFor="max"
+                        className="font-semibold opacity-80 text-sm"
+                      >
+                        Max.
+                      </label>
+                      <input
+                        type="number"
+                        name="maxsal"
+                        id="max"
+                        className="py-1 px-4 border border-slate-400 rounded-md outline-faintGreen "
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -40,6 +62,10 @@ const CandidateLoginDetails = () => {
                     <div className="flex items-center gap-2 text-base">
                       <input type="radio" name="gender" id="female" />
                       <label htmlFor="female">Female</label>
+                    </div>
+                    <div className="flex items-center gap-2 text-base">
+                      <input type="radio" name="gender" id="female" />
+                      <label htmlFor="female">Any Gender</label>
                     </div>
                   </div>
                 </div>
@@ -114,7 +140,7 @@ const CandidateLoginDetails = () => {
                     id=""
                     className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
                   >
-                    <option value="Other">Other</option>
+                    <option value="Other">Any</option>
                     <option value="Driving">Driving</option>
                     <option value="Delivery">Delivery</option>
                     <option value="Healthcare">HealthCare</option>
@@ -300,21 +326,18 @@ const CandidateLoginDetails = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-3">
-                  <h1 className="text-lg font-semibold ">
-                    What job title/role are you looking for?.
-                  </h1>
-                  <input
-                    type="text"
+                <div className="w-full flex flex-col gap-3">
+                  <h1 className="text-lg font-semibold ">Job Description</h1>
+                  <textarea
                     name=""
                     id=""
-                    className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
-                  />
+                    className="w-full border border-slate-400 rounded-md outline-faintGreen"
+                  ></textarea>
                 </div>
 
                 <input
                   type="submit"
-                  value="Create Account"
+                  value="Post Job"
                   className="bg-faintGreen w-full p-3 rounded-lg text-white font-semibold text-lg"
                 />
               </div>
@@ -325,4 +348,4 @@ const CandidateLoginDetails = () => {
     );
 }
 
-export default CandidateLoginDetails;
+export default JobPost;

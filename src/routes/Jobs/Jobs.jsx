@@ -149,7 +149,7 @@ const Jobs = () => {
             {/* Jobs Section */}
             <div className="w-full space-y-3">
               <div
-                className="px-2 py-7 bg-white rounded-2xl space-y-3 w-full min-w-fit overflow-hidden cursor-pointer shadow-2xl border border-slate-200"
+                className="px-2 py-7 bg-white rounded-2xl space-y-3 w-full min-w-fit overflow-hidden cursor-pointer shadow-2xl border border-slate-200 pl-8"
                 onClick={handleShowJobDesc}
               >
                 <div className="flex gap-3 items-center">
