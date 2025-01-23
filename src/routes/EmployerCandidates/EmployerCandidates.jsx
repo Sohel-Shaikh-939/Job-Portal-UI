@@ -8,9 +8,14 @@ import { HiAcademicCap } from "react-icons/hi2";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import { PiBagSimpleFill } from "react-icons/pi";
 import { FaLanguage } from "react-icons/fa";
+import { IoCopyOutline } from "react-icons/io5";
 
 const EmployerCandidates = () => {
   const dispatch = useDispatch();
+
+  const handleCopy = (e) => {
+    navigator.clipboard.writeText(e.currentTarget.value);
+  }
 
   useEffect(() => {
     dispatch(employerSliceAction.setSelectedEmployerPage("candidates"));
@@ -79,13 +84,16 @@ const EmployerCandidates = () => {
               </div>
             </div>
 
-            <div className="w-full bg-faintGray rounded-md p-3 flex justify-between">
+            <div className="w-full bg-faintGray rounded-md p-3 flex justify-between items-center flex-wrap">
               <div className="text-base md:text-lg font-bold opacity-65">
                 Contact mail :
               </div>
               <div className="text-base md:text-lg font-semibold">
                 jamubhau@gmail.com
               </div>
+              <button className="p-2 bg-white border border-slate-500 rounded-md hover:scale-110 transition-all duration-300" value={"hhhhhh"} onClick={handleCopy}>
+                <IoCopyOutline value="xyz.com"/>
+              </button>
             </div>
           </div>
         </div>

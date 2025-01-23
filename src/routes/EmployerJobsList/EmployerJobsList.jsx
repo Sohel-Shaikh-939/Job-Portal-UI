@@ -26,7 +26,7 @@ const EmployerJobsList = () => {
           </Link>
         </div>
         <div className="py-12 space-y-4 ">
-          <div className="bg-white p-5 rounded-md shadow-xl flex flex-col md:flex-row gap-6 md:gap-12 lg:gap-40 md:pb-20 cursor-pointer relative">
+          <div className="bg-white p-5 rounded-md shadow-xl flex flex-col md:flex-row gap-6 md:gap-12 lg:gap-40 md:pb-20 relative">
             <div className="space-y-2">
               <h1 className="text-lg font-semibold ">Software Tester</h1>
               <div className=" opacity-50">
