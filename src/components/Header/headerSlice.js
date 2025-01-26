@@ -21,12 +21,7 @@ const headerSlice = createSlice({
       store.showEmployerOpt = action.payload;
     },
     setLoginInfo: (store, action) => {
-      store.loginInfo = {
-        role: action.payload.role,
-        Authenticated: action.payload.Authenticated,
-        name: action.payload.name,
-        mail: action.payload.mail,
-      };
+      store.loginInfo = {...store.loginInfo, ...action.payload};
     },
     setLoading: (store, action) => {
       store.loading = action.payload;

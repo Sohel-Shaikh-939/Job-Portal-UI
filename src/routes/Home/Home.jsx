@@ -18,7 +18,12 @@ const Home = () => {
       top: 0,
       behavior: "smooth",
     });
-  })
+
+    if (loginInfo.role === "employer") {
+      dispatch(headerSliceAction.setLoginInfo({ Authenticated: false }));
+      localStorage.removeItem("auth");
+    }
+  },[])
 
   const scrollData = [
     {
@@ -73,10 +78,7 @@ const Home = () => {
   const { loginInfo } = useSelector((store) => store.Header);
   const dispatch = useDispatch();
 
-  if (loginInfo.role === "employer") {
-    dispatch(headerSliceAction.setLoginInfo({Authenticated: false}))
-    localStorage.removeItem("auth");
-  }
+  
   return (
     <>
       {/* Hero Section */}

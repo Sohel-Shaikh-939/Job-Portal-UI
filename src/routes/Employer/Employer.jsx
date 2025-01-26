@@ -12,6 +12,7 @@ const Employer = () => {
   const dispatch = useDispatch();
   const { showEmployerOpt } = useSelector((store) => store.Header);
   const { selectedEmployerPage } = useSelector((store) => store.Employer);
+  const { employerInfo } = useSelector((store) => store.EmployerProfile);
 
   useEffect(() =>{  
       dispatch(headerSliceAction.setIsInEmployerSection(true));
@@ -21,7 +22,7 @@ const Employer = () => {
   },[]);
 
   const handleHideOpt = () => {
-      dispatch(headerSliceAction.setShowEmployerOpt(false))
+      dispatch(headerSliceAction.setShowEmployerOpt(false));
   }
 
     return (
@@ -30,7 +31,9 @@ const Employer = () => {
           <div className="bg-white min-h-full py-6 border border-slate-200 space-y-8 hidden md:block">
             <div className="flex items-center gap-4 px-9">
               <img src={tmp} alt="" className="w-12 rounded-md" />
-              <h1 className="font-semibold opacity-85 w-fit text-nowrap pr-8">Gulu Gulu</h1>
+              <h1 className="font-semibold opacity-85 w-fit text-nowrap pr-8">
+                {employerInfo.compname}
+              </h1>
             </div>
             <ul className="cursor-pointer">
               <Link to="/Employer/EmployerJobsList">

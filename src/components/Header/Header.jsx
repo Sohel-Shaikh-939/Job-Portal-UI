@@ -76,7 +76,6 @@ const Header = () => {
       type: loginType.current,
     });
     if (res.data.status) {
-      dispatch(headerSliceAction.setLoginInfo({ Authenticated: true }));
       localStorage.setItem("auth", res.data.auth);
       setShowLogin(false);
       setOtpSent(false);
@@ -86,13 +85,8 @@ const Header = () => {
         } else {
           navigate("/EmployerLogin");
         }
-      } else {
-        if (res.data.candidate) {
-          navigate("/Jobs");
-        } else {
-          navigate("/Employer");
-        }
-      }
+      } 
+      dispatch(headerSliceAction.setLoginInfo({ Authenticated: true }));
     } else {
       e.target.otp.value = "";
       e.target.otp.placeholder = "Wrong otp";
