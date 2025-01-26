@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { headerSliceAction } from "../../components/Header/headerSlice";
 import { RxCross1 } from "react-icons/rx";
 import { Outlet, Link } from "react-router-dom";
-import { employerSliceAction } from "./employerSlice";
 
 const Employer = () => {
   const dispatch = useDispatch();

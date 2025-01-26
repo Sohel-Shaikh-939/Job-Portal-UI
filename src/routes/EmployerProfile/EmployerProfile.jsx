@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const EmployerProfile = () => {
 
     const [showSave, setShowSave] = useState(false);
-
+    const data = useSelector(store => store.Candidate);
+    console.log(data)
+    
     return (
       <>
         <section className="w-full flex justify-center items-center p-8">

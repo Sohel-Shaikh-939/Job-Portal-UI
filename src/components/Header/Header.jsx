@@ -4,41 +4,113 @@ import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { PiBagSimple } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import { CiLogout } from "react-icons/ci";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { IoPerson } from "react-icons/io5";
+import { TbLogout } from "react-icons/tb";
+import { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { headerSliceAction } from "./headerSlice";
+import axios from "axios";
 
 const Header = () => {
-
-  const [showSideBar,setShowSideBar] = useState(false);
-  const [showLogin,setShowLogin] = useState(false);
-  const {isInEmployerSection} = useSelector(store => store.Header);
+  const [showSideBar, setShowSideBar] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const { isInEmployerSection } = useSelector((store) => store.Header);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const mail = useRef("");
+  const otp = useRef();
+  const loginType = useRef("");
+  const { loginInfo } = useSelector((store) => store.Header);
 
   const handleShowOptClick = () => {
-    isInEmployerSection ? dispatch(headerSliceAction.setShowEmployerOpt(true)) : setShowSideBar(true);
+    isInEmployerSection
+      ? dispatch(headerSliceAction.setShowEmployerOpt(true))
+      : setShowSideBar(true);
   };
 
   const handleCloseOptClick = () => {
-    setShowSideBar(false);  
+    setShowSideBar(false);
+  };
+
+  const handleShowProfile = () => {
+    setShowProfile(true);
   }
 
-  const handleLoginOpt = () => {
-    setShowLogin(true);
+  const handleHideProfile = () => {
+    setShowProfile(false);
   }
+
+  const handleLoginOpt = (type) => {
+    loginType.current = type;
+    setShowLogin(true);
+  };
 
   const handleHideLogin = () => {
     setShowLogin(false);
+    setOtpSent(false);
   };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    let res = await axios.post("http://localhost:8080/login", {
+      mail: e.target.mail.value,
+    });
+
+    if (res.data.status) {
+      mail.current = e.target.mail.value;
+      setOtpSent(true);
+    } else {
+      e.target.mail.value = "";
+      e.target.mail.placeholder = "Unable to send otp";
+    }
+  };
+
+  const handleOtp = async (e) => {
+    e.preventDefault();
+    let res = await axios.post("http://localhost:8080/verify", {
+      mail: mail.current,
+      otp: e.target.otp.value,
+      type: loginType.current,
+    });
+    if (res.data.status) {
+      dispatch(headerSliceAction.setLoginInfo({ Authenticated: true }));
+      localStorage.setItem("auth", res.data.auth);
+      setShowLogin(false);
+      setOtpSent(false);
+      if (!res.data.valid) {
+        if (res.data.candidate) {
+          navigate("/CandidateLogin");
+        } else {
+          navigate("/EmployerLogin");
+        }
+      } else {
+        if (res.data.candidate) {
+          navigate("/Jobs");
+        } else {
+          navigate("/Employer");
+        }
+      }
+    } else {
+      e.target.otp.value = "";
+      e.target.otp.placeholder = "Wrong otp";
+    }
+  };
+
+  const handleLogout = () => {
+    handleHideProfile();
+    localStorage.removeItem("auth");
+    dispatch(headerSliceAction.setLoginInfo({Authenticated: false}))
+    navigate("/");
+  }
 
   return (
     <>
       <nav
         className={`sticky top-0 left-0 right-0 lg:px-32 py-1 px-5 pt-4 md:pt-0 w-full flex items-center justify-between z-50 ${
-          isInEmployerSection
-            ? "bg-white"
-            : "bg-faintGray"
+          isInEmployerSection ? "bg-white" : "bg-faintGray"
         }`}
       >
         {/* left section of header */}
@@ -69,18 +141,83 @@ const Header = () => {
         </div>
 
         {/* Right section */}
-
-        <div>
-          <button className="text-xs bg-transparent text-green-900 font-semibold md:text-base md:w-20 lg:w-fit leading-10">
-            Employer Login
-          </button>
-          <button
-            className="text-white py-2 px-3 text-xs md:text-base md:w-32 lg:w-fit bg-faintGreen  rounded  font-semibold text-[.95rem] ml-4 hover:text-faintGreen hover:bg-faintGray border-2 border-faintGreen"
-            onClick={handleLoginOpt}
-          >
-            Candidate Login
-          </button>
-        </div>
+        {loginInfo.Authenticated ? (
+          <div className="relative">
+            {showProfile ? (
+              <div
+                className="bg-white w-12 h-12 flex justify-center items-center rounded-full cursor-pointer"
+                onClick={handleHideProfile}
+              >
+                <RxCross1 className="text-lg" />
+              </div>
+            ) : (
+              <img
+                src={logo}
+                alt=""
+                className="w-12 rounded-full cursor-pointer"
+                onClick={handleShowProfile}
+              />
+            )}
+            <div
+              className={`${
+                showProfile ? "absolute" : "hidden"
+              } bg-white w-[300px] rounded-xl shadow-xl border border-slate-200 -bottom-48 right-0 p-4 transition-all duration-300`}
+            >
+              <div className="flex gap-3 items-center pb-3 border-b border-b-black border-opacity-25">
+                <div>
+                  <img src={logo} alt="" className="w-11 rounded-full" />
+                </div>
+                <div>
+                  <div className="font-semibold">{loginInfo.name}</div>
+                  <div className="text-sm font-semibold opacity-60 leading-6">
+                    {loginInfo.mail}
+                  </div>
+                </div>
+              </div>
+              <div
+                className="flex gap-3 items-center py-3 cursor-pointer"
+                onClick={() => {
+                  if (loginInfo.role === "candidate") {
+                    handleHideProfile();
+                    navigate("/CandidateProfile");
+                  } else if (loginInfo.role === "employer") {
+                    handleHideProfile();
+                    navigate("/Employer/Profile");
+                  }
+                }}
+              >
+                <IoPerson className="text-lg opacity-75" />{" "}
+                <h1 className=" font-semibold opacity-60">View Profile</h1>
+              </div>
+              <div
+                className="flex gap-3 items-center py-1 cursor-pointer"
+                onClick={handleLogout}
+              >
+                <TbLogout className="text-xl text-red-600" />{" "}
+                <h1 className=" font-semibold opacity-60">Logout</h1>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <button
+              className="text-xs bg-transparent text-green-900 font-semibold md:text-base md:w-20 lg:w-fit leading-10"
+              onClick={() => {
+                handleLoginOpt("employer");
+              }}
+            >
+              Employer Login
+            </button>
+            <button
+              className="text-white py-2 px-3 text-xs md:text-base md:w-32 lg:w-fit bg-faintGreen  rounded  font-semibold text-[.95rem] ml-4 hover:text-faintGreen hover:bg-faintGray border-2 border-faintGreen"
+              onClick={() => {
+                handleLoginOpt("candidate");
+              }}
+            >
+              Candidate Login
+            </button>
+          </div>
+        )}
       </nav>
 
       {/* This section is for small screens only visible when three lines are clicked*/}
@@ -130,56 +267,59 @@ const Header = () => {
           showLogin ? "flex" : "hidden"
         } w-full h-full bg-[#08080876] top-0 left-0 right-0 bottom-0 z-50 justify-center items-end md:items-center`}
       >
-        <form action="" className="hidden">
-          <div className="w-[100vw] md:max-w-md relative bg-white p-8 rounded-lg flex flex-col gap-5  ">
-            <h1 className="text-xl font-bold">Enter your email</h1>
-            <input
-              type="email"
-              name=""
-              id=""
-              placeholder="Eg: xyz@gmail.com"
-              className="outline-faintGreen border border-slate-300 p-2 rounded-lg"
-            />
-            <p className="text-sm opacity-65">Be a part of our community</p>
-            <hr />
-            <input
-              type="submit"
-              value="Next"
-              className="bg-faintGreen text-white p-2 w-full rounded-md outline-none font-semibold text-lg "
-            />
-            <div className="absolute bg-black text-white md:text-black md:bg-transparent p-2 rounded-full right-5 -top-10 md:top-5 cursor-pointer">
-              <RxCross1
-                className="text-base md:text-lg"
-                onClick={handleHideLogin}
+        {otpSent ? (
+          <form onSubmit={handleOtp}>
+            <div className="w-[100vw] md:max-w-md relative bg-white p-8 rounded-lg flex flex-col gap-5  ">
+              <h1 className="text-xl font-bold">Enter OTP</h1>
+              <input
+                type="number"
+                name="otp"
+                id=""
+                placeholder="Eg: xyz@gmail.com"
+                className="outline-faintGreen border border-slate-300 p-2 rounded-lg"
               />
-            </div>
-          </div>
-        </form>
-
-        <form action="">
-          <div className="w-[100vw] md:max-w-md relative bg-white p-8 rounded-lg flex flex-col gap-5  ">
-            <h1 className="text-xl font-bold">Enter OTP</h1>
-            <input
-              type="number"
-              name=""
-              id=""
-              placeholder="Eg: xyz@gmail.com"
-              className="outline-faintGreen border border-slate-300 p-2 rounded-lg"
-            />
-            <hr />
-            <input
-              type="submit"
-              value="Verify OTP"
-              className="bg-faintGreen text-white p-2 w-full rounded-md outline-none font-semibold text-lg "
-            />
-            <div className="absolute bg-black text-white md:text-black md:bg-transparent p-2 rounded-full right-5 -top-10 md:top-5 cursor-pointer">
-              <RxCross1
-                className="text-base md:text-lg"
-                onClick={handleHideLogin}
+              <hr />
+              <input
+                type="submit"
+                value="Verify OTP"
+                className="bg-faintGreen text-white p-2 w-full rounded-md outline-none font-semibold text-lg"
+                ref={otp}
               />
+              <div className="absolute bg-black text-white md:text-black md:bg-transparent p-2 rounded-full right-5 -top-10 md:top-5 cursor-pointer">
+                <RxCross1
+                  className="text-base md:text-lg"
+                  onClick={handleHideLogin}
+                />
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        ) : (
+          <form onSubmit={handleLogin}>
+            <div className="w-[100vw] md:max-w-md relative bg-white p-8 rounded-lg flex flex-col gap-5  ">
+              <h1 className="text-xl font-bold">Enter your email</h1>
+              <input
+                type="email"
+                name="mail"
+                placeholder="Eg: xyz@gmail.com"
+                className="outline-faintGreen border border-slate-300 p-2 rounded-lg"
+                required
+              />
+              <p className="text-sm opacity-65">Be a part of our community</p>
+              <hr />
+              <input
+                type="submit"
+                value="Next"
+                className="bg-faintGreen text-white p-2 w-full rounded-md outline-none font-semibold text-lg "
+              />
+              <div className="absolute bg-black text-white md:text-black md:bg-transparent p-2 rounded-full right-5 -top-10 md:top-5 cursor-pointer">
+                <RxCross1
+                  className="text-base md:text-lg"
+                  onClick={handleHideLogin}
+                />
+              </div>
+            </div>
+          </form>
+        )}
       </section>
     </>
   );

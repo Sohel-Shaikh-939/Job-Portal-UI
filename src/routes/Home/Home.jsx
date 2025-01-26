@@ -7,8 +7,19 @@ import partTime from "../../assets/part-time.webp";
 import women from "../../assets/women.webp";
 import workFromHome from "../../assets/work-from-home.webp";
 import twoPeople from "../../assets/two-people.png";
+import { useDispatch, useSelector } from "react-redux";
+import { headerSliceAction } from "../../components/Header/headerSlice";
+import { useEffect } from "react";
 
 const Home = () => {
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  })
+
   const scrollData = [
     {
       img: "1.jpeg",
@@ -59,7 +70,13 @@ const Home = () => {
       desc: " Lallu Mastmola got job 4 hours ago",
     },
   ];
+  const { loginInfo } = useSelector((store) => store.Header);
+  const dispatch = useDispatch();
 
+  if (loginInfo.role === "employer") {
+    dispatch(headerSliceAction.setLoginInfo({Authenticated: false}))
+    localStorage.removeItem("auth");
+  }
   return (
     <>
       {/* Hero Section */}
@@ -78,8 +95,11 @@ const Home = () => {
 
           {/* Scroll Animation  */}
           <div className="absolute bottom-5 md:bottom-12 flex gap-10 anim">
-            {scrollData.map((data,ind) => (
-              <div className="bg-white w-72 flex gap-2 rounded-s-full rounded-e-full p-4 items-center" key={ind}>
+            {scrollData.map((data, ind) => (
+              <div
+                className="bg-white w-72 flex gap-2 rounded-s-full rounded-e-full p-4 items-center"
+                key={ind}
+              >
                 <div className="rounded-full overflow-hidden w-12 h-12 ">
                   <img src={data.img} alt="" className="w-full" />
                 </div>
