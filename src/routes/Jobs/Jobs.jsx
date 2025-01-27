@@ -1,5 +1,5 @@
 import SearchBar from "../../components/SearchBar/SearchBar";
-import tmp from "../../assets/logo.webp"
+import companyPic from "../../assets/company_default.png";
 import { useNavigate } from "react-router-dom";
 import { IoLocationSharp } from "react-icons/io5";
 import { GiMoneyStack } from "react-icons/gi";
@@ -153,7 +153,7 @@ const Jobs = () => {
                 onClick={handleShowJobDesc}
               >
                 <div className="flex gap-3 items-center">
-                  <img src={tmp} alt="" className="w-12 md:w-16 rounded-xl" />
+                  <img src={companyPic} alt="" className="w-12 md:w-14 rounded-md" />
                   <div>
                     <div className="text-lg font-semibold">
                       Field Sales Executive

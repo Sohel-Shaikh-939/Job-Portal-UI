@@ -49,16 +49,16 @@ const route = createBrowserRouter([
         element: <EmployerLoginDetails />,
       },
       {
-        path: "/JobPost",
-        element: <JobPost />,
-      },
-      {
         path: "/Employer",
         element: <Employer />,
         children: [
           {
             path: "/Employer/",
             element: <EmployerJobsList />,
+          },
+          {
+            path: "/Employer/JobPost",
+            element: <JobPost />,
           },
           {
             path: "/Employer/EmployerJobsList",
@@ -74,7 +74,7 @@ const route = createBrowserRouter([
           },
           {
             path: "/Employer/Profile",
-            element: <EmployerProfile  />,
+            element: <EmployerProfile />,
           },
         ],
       },

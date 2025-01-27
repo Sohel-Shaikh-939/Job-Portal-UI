@@ -1,4 +1,4 @@
-import tmp from "../../assets/logo.webp"
+import companyPic from "../../assets/company_default.png"
 import { IoLocationSharp } from "react-icons/io5";
 import { HiInformationCircle } from "react-icons/hi2";
 import { IoPerson } from "react-icons/io5";
@@ -16,7 +16,11 @@ const Job = () => {
             {/* First div for information */}
             <div className="bg-white p-4 rounded-xl space-y-3 border border-slate-300">
               <div className="flex items-center gap-4">
-                <img src={tmp} alt="" className="w-12 md:w-16 rounded-xl" />
+                <img
+                  src={companyPic}
+                  alt=""
+                  className="w-12 md:w-14 rounded-md"
+                />
                 <div>
                   <div className="text-lg font-semibold">
                     Field Sales Executive
@@ -26,7 +30,7 @@ const Job = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <IoLocationSharp  className="opacity-50 text-xl"/>
+                <IoLocationSharp className="opacity-50 text-xl" />
                 Pune
               </div>
 

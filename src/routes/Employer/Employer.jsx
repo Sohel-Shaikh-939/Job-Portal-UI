@@ -133,7 +133,7 @@ const Employer = () => {
               />
             </div>
           </div>
-          <div className="w-full">
+          <div className="w-full relative">
             <Outlet></Outlet>
           </div>
         </section>

@@ -1,10 +1,67 @@
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { homeSliceAction } from "../Home/homeSlice";
+
 const JobPost = () => {
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleJobPost = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    const formData = {
+      jtitle: form.jtitle.value,
+      minsal: form.minsal.value,
+      maxsal: form.maxsal.value,
+      gender: form.gender.value,
+      education: form.education.value,
+      location: form.location.value,
+      field: form.field.value,
+      englvl: form.englvl.value,
+      experience: form.experience.value,
+      shift: Array.from(form.shift)
+        .filter((cbox) => cbox.checked)
+        .map((cbox) => cbox.value),
+      workplace: Array.from(form.workplace)
+        .filter((cbox) => cbox.checked)
+        .map((cbox) => cbox.value),
+      emptype: Array.from(form.emptype)
+        .filter((cbox) => cbox.checked)
+        .map((cbox) => cbox.value),
+      jobdesc: form.jobdesc.value,
+    };
+    const res = await axios.post(
+      "http://localhost:8080/postjob",
+      formData,
+      {
+        headers: {
+          "Content-Type": "Application/json",
+          Authorization: localStorage.getItem("auth"),
+        },
+      }
+    );
+
+    if(res.data.status) dispatch(homeSliceAction.setRepaint());
+    navigate("/Employer/EmployerJobsList");
+  }
+
     return (
       <>
         <section className="w-full bg-faintGray p-4 md:py-10 flex justify-center">
-          <form action="">
-            <div className="bg-white p-5 rounded-lg space-y-3 md:w-[60vw] lg:w-[40vw] border border-slate-300 shadow-xl">
-              <h1 className="text-3xl font-semibold">Fill Details</h1>
+          <div className="bg-white p-5 rounded-lg space-y-3 md:w-[60vw] lg:w-[40vw] border border-slate-300 shadow-xl relative">
+            <Link
+              to="/Employer/EmployerJobsList"
+              className="md:py-2 md:px-7 py-1 px-3 bg-red-600 text-white font-semibold rounded-lg absolute top-8 md:top-4 right-4"
+            >
+              Cancel
+            </Link>
+            <form onSubmit={handleJobPost}>
+              <h1 className="md:text-3xl text-2xl font-semibold mb-4">
+                Fill Details
+              </h1>
               <hr />
 
               <div className="space-y-8">
@@ -12,9 +69,9 @@ const JobPost = () => {
                   <h1 className="text-lg font-semibold ">Job title</h1>
                   <input
                     type="text"
-                    name=""
-                    id=""
+                    name="jtitle"
                     className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
+                    required
                   />
                 </div>
 
@@ -33,6 +90,7 @@ const JobPost = () => {
                         name="minsal"
                         id="min"
                         className="py-1 px-4 border border-slate-400 rounded-md outline-faintGreen "
+                        required
                       />
                     </div>
                     <div className="flex flex-col gap-1">
@@ -47,6 +105,7 @@ const JobPost = () => {
                         name="maxsal"
                         id="max"
                         className="py-1 px-4 border border-slate-400 rounded-md outline-faintGreen "
+                        required
                       />
                     </div>
                   </div>
@@ -56,16 +115,34 @@ const JobPost = () => {
                   <h1 className="text-lg font-semibold ">Gender</h1>
                   <div>
                     <div className="flex items-center gap-2 text-base">
-                      <input type="radio" name="gender" id="male" />
+                      <input
+                        type="radio"
+                        name="gender"
+                        id="male"
+                        value="Male"
+                        required
+                      />
                       <label htmlFor="male">Male</label>
                     </div>
                     <div className="flex items-center gap-2 text-base">
-                      <input type="radio" name="gender" id="female" />
+                      <input
+                        type="radio"
+                        name="gender"
+                        id="female"
+                        value="Female"
+                        required
+                      />
                       <label htmlFor="female">Female</label>
                     </div>
                     <div className="flex items-center gap-2 text-base">
-                      <input type="radio" name="gender" id="female" />
-                      <label htmlFor="female">Any Gender</label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        id="any"
+                        value="Any Gender"
+                        required
+                      />
+                      <label htmlFor="any">Any Gender</label>
                     </div>
                   </div>
                 </div>
@@ -73,15 +150,14 @@ const JobPost = () => {
                 <div className="flex flex-col gap-2">
                   <h1 className="text-lg font-semibold ">Education</h1>
                   <select
-                    name=""
-                    id=""
+                    name="education"
                     className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
+                    required
                   >
                     <option value="No Education">No Education</option>
                     <option value="10th Pass">10th Pass</option>
                     <option value="12th Pass">12th Pass</option>
                     <option value="Diploma">Diploma</option>
-                    <option value="Bihar">Bihar</option>
                     <option value="ITI">ITI</option>
                     <option value="Graduate">Graduate</option>
                     <option value="Post Graduate">Post Graduate</option>
@@ -91,9 +167,9 @@ const JobPost = () => {
                 <div className="flex flex-col gap-2">
                   <h1 className="text-lg font-semibold ">Location</h1>
                   <select
-                    name=""
-                    id=""
+                    name="location"
                     className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
+                    required
                   >
                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -130,15 +206,16 @@ const JobPost = () => {
                     <option value="Lakshadweep">Lakshadweep</option>
                     <option value="Delhi">Delhi</option>
                     <option value="Puducherry">Puducherry</option>
+                    <option value="International">International</option>
                   </select>
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <h1 className="text-lg font-semibold ">Skill (Field)</h1>
                   <select
-                    name=""
-                    id=""
+                    name="field"
                     className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
+                    required
                   >
                     <option value="Other">Any</option>
                     <option value="Driving">Driving</option>
@@ -158,7 +235,13 @@ const JobPost = () => {
                   <h1 className="text-lg font-semibold">Language</h1>
                   <div className="flex flex-col gap-4 text-base">
                     <div className="flex items-center gap-2 text-base">
-                      <input type="radio" name="english" id="noEnglish" />
+                      <input
+                        type="radio"
+                        name="englvl"
+                        id="noEnglish"
+                        value="No English"
+                        required
+                      />
                       <label
                         htmlFor="noEnglish"
                         className="text-base font-semibold opacity-80"
@@ -169,9 +252,11 @@ const JobPost = () => {
                     <div className="flex items-start gap-2 text-base">
                       <input
                         type="radio"
-                        name="english"
+                        name="englvl"
                         id="basicEnglish"
                         className="mt-2"
+                        value="Basic"
+                        required
                       />
                       <label htmlFor="basicEnglish">
                         <div>
@@ -187,9 +272,11 @@ const JobPost = () => {
                     <div className="flex items-start gap-2 text-base">
                       <input
                         type="radio"
-                        name="english"
+                        name="englvl"
                         id="interEnglish"
                         className="mt-2"
+                        value="Intermediate"
+                        required
                       />
                       <label htmlFor="interEnglish">
                         <div>
@@ -206,9 +293,11 @@ const JobPost = () => {
                     <div className="flex items-start gap-2 text-base">
                       <input
                         type="radio"
-                        name="english"
+                        name="englvl"
                         id="adEnglish"
                         className="mt-2"
+                        value="Advanced"
+                        required
                       />
                       <label htmlFor="adEnglish">
                         <div>
@@ -228,9 +317,9 @@ const JobPost = () => {
                 <div className="flex flex-col gap-3">
                   <h1 className="text-lg font-semibold ">Experience</h1>
                   <select
-                    name=""
-                    id=""
+                    name="experience"
                     className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
+                    required
                   >
                     <option value="Fresher">Fresher</option>
                     <option value="1 Year">1 Year</option>
@@ -245,7 +334,12 @@ const JobPost = () => {
                   <h1 className="text-lg font-semibold">Preferred Shifts</h1>
                   <div>
                     <div className="flex gap-2 items-center">
-                      <input type="checkbox" name="" id="ns" />
+                      <input
+                        type="checkbox"
+                        name="shift"
+                        id="ns"
+                        value="Night Shift"
+                      />
                       <label
                         htmlFor="ns"
                         className="text-base font-semibold opacity-70 "
@@ -254,7 +348,12 @@ const JobPost = () => {
                       </label>
                     </div>
                     <div className="flex gap-2 items-center">
-                      <input type="checkbox" name="" id="ds" />
+                      <input
+                        type="checkbox"
+                        name="shift"
+                        id="ds"
+                        value="Day Shift"
+                      />
                       <label
                         htmlFor="ds"
                         className="text-base font-semibold opacity-70 "
@@ -271,27 +370,42 @@ const JobPost = () => {
                   </h1>
                   <div>
                     <div className="flex gap-2 items-center">
-                      <input type="checkbox" name="" id="wfh" />
+                      <input
+                        type="checkbox"
+                        name="workplace"
+                        id="wfh"
+                        value="Work from Home"
+                      />
                       <label
-                        htmlFor="ns"
+                        htmlFor="wfh"
                         className="text-base font-semibold opacity-70 "
                       >
                         Work from Home
                       </label>
                     </div>
                     <div className="flex gap-2 items-center">
-                      <input type="checkbox" name="" id="wfo" />
+                      <input
+                        type="checkbox"
+                        name="workplace"
+                        id="wfo"
+                        value="Work from Office"
+                      />
                       <label
-                        htmlFor="ns"
+                        htmlFor="wfo"
                         className="text-base font-semibold opacity-70 "
                       >
                         Work from Office
                       </label>
                     </div>
                     <div className="flex gap-2 items-center">
-                      <input type="checkbox" name="" id="fj" />
+                      <input
+                        type="checkbox"
+                        name="workplace"
+                        id="fj"
+                        value="Field Job"
+                      />
                       <label
-                        htmlFor="ns"
+                        htmlFor="fj"
                         className="text-base font-semibold opacity-70 "
                       >
                         Field Job
@@ -306,7 +420,12 @@ const JobPost = () => {
                   </h1>
                   <div>
                     <div className="flex gap-2 items-center">
-                      <input type="checkbox" name="" id="ft" />
+                      <input
+                        type="checkbox"
+                        name="emptype"
+                        id="ft"
+                        value="Full Time"
+                      />
                       <label
                         htmlFor="ft"
                         className="text-base font-semibold opacity-70 "
@@ -315,7 +434,12 @@ const JobPost = () => {
                       </label>
                     </div>
                     <div className="flex gap-2 items-center">
-                      <input type="checkbox" name="" id="pt" />
+                      <input
+                        type="checkbox"
+                        name="emptype"
+                        id="pt"
+                        value="Part Time"
+                      />
                       <label
                         htmlFor="pt"
                         className="text-base font-semibold opacity-70 "
@@ -329,9 +453,8 @@ const JobPost = () => {
                 <div className="w-full flex flex-col gap-3">
                   <h1 className="text-lg font-semibold ">Job Description</h1>
                   <textarea
-                    name=""
-                    id=""
-                    className="w-full border border-slate-400 rounded-md outline-faintGreen"
+                    name="jobdesc"
+                    className="w-full border border-slate-400 rounded-md outline-faintGreen p-1"
                   ></textarea>
                 </div>
 
@@ -341,8 +464,8 @@ const JobPost = () => {
                   className="bg-faintGreen w-full p-3 rounded-lg text-white font-semibold text-lg"
                 />
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </section>
       </>
     );

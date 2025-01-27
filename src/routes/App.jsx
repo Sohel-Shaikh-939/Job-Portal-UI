@@ -15,6 +15,7 @@ const App = () => {
   const navigate = useNavigate();
   const {loading} = useSelector(store => store.Header)
   const { loginInfo } = useSelector((store) => store.Header);
+  const { repaint } = useSelector((store) => store.Home);
 
   useEffect(() => {
     (async function () {
@@ -55,7 +56,7 @@ const App = () => {
         dispatch(headerSliceAction.setLoading(false));
       }
     })();
-  }, [loginInfo.Authenticated]);
+  }, [loginInfo.Authenticated,repaint]);
 
   return (
     <>
