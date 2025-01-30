@@ -6,18 +6,23 @@ import { SiGoogleforms } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { headerSliceAction } from "../../components/Header/headerSlice";
 import { RxCross1 } from "react-icons/rx";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
+import { employerSliceAction } from "./employerSlice";
 
 const Employer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { showEmployerOpt } = useSelector((store) => store.Header);
   const { selectedEmployerPage } = useSelector((store) => store.Employer);
+  const { currentPage } = useSelector((store) => store.Employer);
   const { employerInfo } = useSelector((store) => store.EmployerProfile);
+  
 
   useEffect(() =>{  
       dispatch(headerSliceAction.setIsInEmployerSection(true));
       return ()=>{
         dispatch(headerSliceAction.setIsInEmployerSection(false));
+        dispatch(employerSliceAction.setCurrentPage("jobs"));
       }
   },[]);
 
@@ -42,6 +47,9 @@ const Employer = () => {
                     selectedEmployerPage === "jobs" &&
                     "bg-faintGreen text-white"
                   }`}
+                  onClick={() => {
+                    dispatch(employerSliceAction.setCurrentPage("jobs"));
+                  }}
                 >
                   <PiBagSimpleFill className="text-base" /> Jobs
                 </li>
@@ -65,6 +73,9 @@ const Employer = () => {
                     selectedEmployerPage === "interested" &&
                     "bg-faintGreen text-white"
                   }`}
+                  onClick={() => {
+                    dispatch(employerSliceAction.setCurrentPage("interested"));
+                  }}
                 >
                   <SiGoogleforms className="text-lg" />
                   Interested
@@ -81,7 +92,9 @@ const Employer = () => {
           >
             <div className="flex items-center gap-4 px-9 relative">
               <img src={tmp} alt="" className="w-12 rounded-md" />
-              <h1 className="font-semibold opacity-85">{employerInfo.compname}</h1>
+              <h1 className="font-semibold opacity-85">
+                {employerInfo.compname}
+              </h1>
             </div>
             <ul className="cursor-pointer">
               <Link to="/Employer/EmployerJobsList">
@@ -92,6 +105,7 @@ const Employer = () => {
                   }`}
                   onClick={() => {
                     dispatch(headerSliceAction.setShowEmployerOpt(false));
+                    dispatch(employerSliceAction.setCurrentPage("jobs"));
                   }}
                 >
                   <PiBagSimpleFill className="text-base" /> Jobs
@@ -119,6 +133,7 @@ const Employer = () => {
                   }`}
                   onClick={() => {
                     dispatch(headerSliceAction.setShowEmployerOpt(false));
+                    dispatch(employerSliceAction.setCurrentPage("interested"));
                   }}
                 >
                   <SiGoogleforms className="text-lg" />

@@ -2,16 +2,21 @@ import { useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { employerSliceAction } from "../Employer/employerSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import { homeSliceAction } from "../Home/homeSlice";
 
 const EmployerJobsList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { employerInfo } = useSelector((store) => store.EmployerProfile);
+  const { currentPage } = useSelector((store) => store.Employer);
 
   useEffect(() => {
+      if (currentPage === "interested") {
+        navigate("/Employer/EmployerInterested");
+      }
     dispatch(employerSliceAction.setSelectedEmployerPage("jobs"));
     window.scrollTo({
       top: 0,

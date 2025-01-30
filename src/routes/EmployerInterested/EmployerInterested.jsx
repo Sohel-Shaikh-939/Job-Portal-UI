@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 
 const EmployerInterested = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { employerInfo } = useSelector((store) => store.EmployerProfile);
 
     const handleCopy = (e) => {
@@ -27,10 +26,8 @@ const EmployerInterested = () => {
           Authorization:localStorage.getItem("auth"),
         }
       });
-      console.log(res.data)
       if (res.data.status) {
         dispatch(homeSliceAction.setRepaint())
-        navigate("/Employer/EmployerInterested");
       }
     }
 
