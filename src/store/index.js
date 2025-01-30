@@ -4,6 +4,8 @@ import employerSlice from "../routes/Employer/employerSlice";
 import homeSlice from "../routes/Home/homeSlice";
 import candidateSlice from "../routes/CandidateProfile/candidateSlice";
 import employerProfileSlice, { employerProfileSliceAction } from "../routes/EmployerProfile/employerProfileSlice";
+import jobsSlice from "../routes/Jobs/jobsSlice";
+import jobSlice from "../routes/Job/jobSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ const store = configureStore({
     Home: homeSlice.reducer,
     Candidate: candidateSlice.reducer,
     EmployerProfile: employerProfileSlice.reducer,
+    Jobs: jobsSlice.reducer,
+    Job: jobSlice.reducer,
   },
 });
 

@@ -33,7 +33,7 @@ const route = createBrowserRouter([
         element: <Jobs />,
       },
       {
-        path: "/Job/:id",
+        path: "/Job",
         element: <Job />,
       },
       {
@@ -83,11 +83,11 @@ const route = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
     <Provider store={store}>
       <RouterProvider router={route}>
         <App />
       </RouterProvider>
     </Provider>
-  </StrictMode>
+  // </StrictMode>
 );

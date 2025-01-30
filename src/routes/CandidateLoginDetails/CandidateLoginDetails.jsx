@@ -1,8 +1,11 @@
 import axios from "axios";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { homeSliceAction } from "../Home/homeSlice";
 
 const CandidateLoginDetails = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleCandidateDetails = async (e) => {
     e.preventDefault();
@@ -41,6 +44,7 @@ const CandidateLoginDetails = () => {
     );
 
     if (res.data.status) {
+      dispatch(homeSliceAction.setRepaint());
       navigate("/Jobs");
     } else {
       navigate("/");

@@ -10,7 +10,6 @@ import { homeSliceAction } from "../Home/homeSlice";
 const EmployerJobsList = () => {
   const dispatch = useDispatch();
   const { employerInfo } = useSelector((store) => store.EmployerProfile);
-  const { repaint } = useSelector((store) => store.Home);
 
   useEffect(() => {
     dispatch(employerSliceAction.setSelectedEmployerPage("jobs"));
@@ -30,7 +29,6 @@ const EmployerJobsList = () => {
           },
         }
       );
-
       if(res.data.status) {
         dispatch(homeSliceAction.setRepaint());
       }
@@ -63,7 +61,7 @@ const EmployerJobsList = () => {
                   </div>
                 </div>
                 <div className=" opacity-35 font-semibold space-y-2 md:px-5 border-none md:border border-l-slate-500">
-                  <div>-</div>
+                  <div>{job.appliedcount ?job.appliedcount: "-" }</div>
                   <div>Applied to job</div>
                 </div>
                 <div className="cursor-pointer border border-slate-400 p-2 h-fit w-fit rounded-md absolute top-4 right-4" onClick={() => {

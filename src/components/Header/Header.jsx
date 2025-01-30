@@ -87,6 +87,7 @@ const Header = () => {
         }
       } 
       dispatch(headerSliceAction.setLoginInfo({ Authenticated: true }));
+      // navigate("/Employer/")
     } else {
       e.target.otp.value = "";
       e.target.otp.placeholder = "Wrong otp";

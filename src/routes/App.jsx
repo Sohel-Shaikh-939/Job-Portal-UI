@@ -49,7 +49,9 @@ const App = () => {
             })
           );
           dispatch(employerProfileSliceAction.setEmployerInfo(res.data.data));
-          navigate("/Employer/");
+          if (res.data.valid) {
+            navigate("/Employer/");
+          }
         }
         dispatch(headerSliceAction.setLoading(false));
       } else {

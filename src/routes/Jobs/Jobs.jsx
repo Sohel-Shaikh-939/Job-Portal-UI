@@ -5,15 +5,33 @@ import { IoLocationSharp } from "react-icons/io5";
 import { GiMoneyStack } from "react-icons/gi";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { jobsSliceAction } from "./jobsSlice";
+import { jobSliceAction } from "../Job/jobSlice";
 
 const Jobs = () => {
 
   const navigate = useNavigate();
-  const [showFilter,setShowFilter] = useState(false);
+  const dispatch = useDispatch();
+  const {jobs} = useSelector(store => store.Jobs);
+  const [showFilter,setShowFilter] = useState(false);  
 
-  const handleShowJobDesc = () => {
-      navigate("/Job/abc");
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+     (async () => {
+      const res = await axios.get("http://localhost:8080/jobs");
+      dispatch(jobsSliceAction.setJobs(res.data.data));
+     })();
+  },[]);
+
+  const handleShowJobDesc = (job) => {
+      dispatch(jobSliceAction.setJob(job));
+      navigate("/Job");
   }
 
   const handleShowFilter = () => {
@@ -148,40 +166,51 @@ const Jobs = () => {
 
             {/* Jobs Section */}
             <div className="w-full space-y-3">
-              <div
-                className="px-2 py-7 bg-white rounded-2xl space-y-3 w-full min-w-fit overflow-hidden cursor-pointer shadow-2xl border border-slate-200 pl-8"
-                onClick={handleShowJobDesc}
-              >
-                <div className="flex gap-3 items-center">
-                  <img src={companyPic} alt="" className="w-12 md:w-14 rounded-md" />
-                  <div>
-                    <div className="text-lg font-semibold">
-                      Field Sales Executive
+              {jobs.map((job,ind) => (
+                <div
+                  className="px-2 py-7 bg-white rounded-2xl space-y-3 w-full min-w-fit overflow-hidden cursor-pointer shadow-2xl border border-slate-200 pl-8"
+                  onClick={() => {
+                    handleShowJobDesc(job);
+                  }}
+                  key={ind}
+                >
+                  <div className="flex gap-3 items-center">
+                    <img
+                      src={companyPic}
+                      alt=""
+                      className="w-12 md:w-14 rounded-md"
+                    />
+                    <div>
+                      <div className="text-lg font-semibold">
+                        {job.jtitle}
+                      </div>
+                      <div className="text-sm opacity-60">
+                        {job.compname}
+                      </div>
                     </div>
-                    <div className="text-sm opacity-60">Meezan Enterprises</div>
                   </div>
-                </div>
 
-                <div className="pl-6">
-                  <div className="opacity-60 flex items-center gap-2">
-                    <IoLocationSharp className="opacity-80" />
-                    Pune
+                  <div className="pl-6">
+                    <div className="opacity-60 flex items-center gap-2">
+                      <IoLocationSharp className="opacity-80" />
+                      {job.location}
+                    </div>
+                    <div className="opacity-60 flex items-center gap-2">
+                      <GiMoneyStack className="opacity-90" />
+                      ${job.minsal} - ${job.maxsal} monthly
+                    </div>
                   </div>
-                  <div className="opacity-60 flex items-center gap-2">
-                    <GiMoneyStack className="opacity-90" />
-                    $1500 - $30000 monthly
-                  </div>
-                </div>
 
-                <div className="flex gap-2">
-                  <div className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65">
-                    Full Time
-                  </div>
-                  <div className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65">
-                    Min. 2 years
+                  <div className="flex gap-2">
+                    <div className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65">
+                      Full Time
+                    </div>
+                    <div className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65">
+                      Min. 2 years
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

@@ -77,11 +77,11 @@ const Employer = () => {
             className={`bg-white  py-6 border border-slate-200 space-y-8 absolute top-0
                ${
                  showEmployerOpt ? "left-0" : "-left-full"
-               } bottom-0 md:hidden transition-all duration-500`}
+               } bottom-0 md:hidden transition-all duration-500 z-50`}
           >
             <div className="flex items-center gap-4 px-9 relative">
               <img src={tmp} alt="" className="w-12 rounded-md" />
-              <h1 className="font-semibold opacity-85">Gulu Gulu</h1>
+              <h1 className="font-semibold opacity-85">{employerInfo.compname}</h1>
             </div>
             <ul className="cursor-pointer">
               <Link to="/Employer/EmployerJobsList">

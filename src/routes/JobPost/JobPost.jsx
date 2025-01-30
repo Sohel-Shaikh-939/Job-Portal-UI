@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { homeSliceAction } from "../Home/homeSlice";
 
@@ -7,6 +7,7 @@ const JobPost = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {employerInfo} = useSelector(store => store.EmployerProfile);
 
   const handleJobPost = async (e) => {
     e.preventDefault();
@@ -14,6 +15,7 @@ const JobPost = () => {
 
     const formData = {
       jtitle: form.jtitle.value,
+      compname: employerInfo.compname,
       minsal: form.minsal.value,
       maxsal: form.maxsal.value,
       gender: form.gender.value,
