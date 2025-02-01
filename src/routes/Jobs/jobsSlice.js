@@ -7,6 +7,9 @@ const jobsSlice = createSlice({
     setJobs: (store, action) => {
       store.jobs = [...store.jobs, ...action.payload];
     },
+    setJobsEmpty: (store, action) => {
+      store.jobs = [];
+    },
   },
 });
 
