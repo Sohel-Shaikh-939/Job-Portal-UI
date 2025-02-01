@@ -5,7 +5,7 @@ import { IoLocationSharp } from "react-icons/io5";
 import { GiMoneyStack } from "react-icons/gi";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { jobsSliceAction } from "./jobsSlice";
@@ -16,18 +16,43 @@ const Jobs = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {jobs} = useSelector(store => store.Jobs);
-  const [showFilter,setShowFilter] = useState(false);  
+  const [showFilter,setShowFilter] = useState(false);
+  const page = useRef(1);  
+  const [noMore,setNoMore] = useState(false);  
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-     (async () => {
-      const res = await axios.get("http://localhost:8080/jobs");
-      dispatch(jobsSliceAction.setJobs(res.data.data));
-     })();
+     async function data(){
+      const res = await axios.get(
+        `http://localhost:8080/jobs?page=${page.current}`
+      );
+      if (res.data.status) {
+        dispatch(jobsSliceAction.setJobs(res.data.data));
+      }
+     }
+     if (!jobs.length) {
+        data();
+      }
   },[]);
+
+  const handleLoadMore = async () => {
+      if (noMore) {
+        return;
+      }
+      page.current++;
+      const res = await axios.get(
+        `http://localhost:8080/jobs?page=${page.current}`
+      );
+      if (!res.data.count) {
+        setNoMore(true);
+      }
+      if (res.data.status) {
+        dispatch(jobsSliceAction.setJobs(res.data.data));
+      }
+  }
 
   const handleShowJobDesc = (job) => {
       dispatch(jobSliceAction.setJob(job));
@@ -166,7 +191,7 @@ const Jobs = () => {
 
             {/* Jobs Section */}
             <div className="w-full space-y-3">
-              {jobs.map((job,ind) => (
+              {jobs.map((job, ind) => (
                 <div
                   className="px-2 py-7 bg-white rounded-2xl space-y-3 w-full min-w-fit overflow-hidden cursor-pointer shadow-2xl border border-slate-200 pl-8"
                   onClick={() => {
@@ -181,12 +206,8 @@ const Jobs = () => {
                       className="w-12 md:w-14 rounded-md"
                     />
                     <div>
-                      <div className="text-lg font-semibold">
-                        {job.jtitle}
-                      </div>
-                      <div className="text-sm opacity-60">
-                        {job.compname}
-                      </div>
+                      <div className="text-lg font-semibold">{job.jtitle}</div>
+                      <div className="text-sm opacity-60">{job.compname}</div>
                     </div>
                   </div>
 
@@ -196,8 +217,8 @@ const Jobs = () => {
                       {job.location}
                     </div>
                     <div className="opacity-60 flex items-center gap-2">
-                      <GiMoneyStack className="opacity-90" />
-                      ${job.minsal} - ${job.maxsal} monthly
+                      <GiMoneyStack className="opacity-90" />${job.minsal} - $
+                      {job.maxsal} monthly
                     </div>
                   </div>
 
@@ -211,6 +232,14 @@ const Jobs = () => {
                   </div>
                 </div>
               ))}
+              <div>
+                <div
+                  className="py-4 px-7 bg-faintGreen rounded-md hover:scale-105 text-white text-xl font-semibold m-auto w-fit transition-all duration-300"
+                  onClick={handleLoadMore}
+                >
+                  {noMore ? "No More Jobs" : "Load More"}
+                </div>
+              </div>
             </div>
           </div>
         </div>

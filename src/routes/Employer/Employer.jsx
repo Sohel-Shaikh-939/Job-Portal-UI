@@ -14,7 +14,6 @@ const Employer = () => {
   const navigate = useNavigate();
   const { showEmployerOpt } = useSelector((store) => store.Header);
   const { selectedEmployerPage } = useSelector((store) => store.Employer);
-  const { currentPage } = useSelector((store) => store.Employer);
   const { employerInfo } = useSelector((store) => store.EmployerProfile);
   
 
@@ -23,6 +22,8 @@ const Employer = () => {
       return ()=>{
         dispatch(headerSliceAction.setIsInEmployerSection(false));
         dispatch(employerSliceAction.setCurrentPage("jobs"));
+        dispatch(headerSliceAction.setLoginInfo({ Authenticated: false }));
+        localStorage.removeItem("auth");
       }
   },[]);
 

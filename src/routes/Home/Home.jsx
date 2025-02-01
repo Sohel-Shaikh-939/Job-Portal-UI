@@ -19,10 +19,10 @@ const Home = () => {
       behavior: "smooth",
     });
 
-    if (loginInfo.role === "employer") {
-      dispatch(headerSliceAction.setLoginInfo({ Authenticated: false }));
-      localStorage.removeItem("auth");
-    }
+    // if (loginInfo.role === "employer") {
+    //   dispatch(headerSliceAction.setLoginInfo({ Authenticated: false }));
+    //   localStorage.removeItem("auth");
+    // }  
   },[])
 
   const scrollData = [
