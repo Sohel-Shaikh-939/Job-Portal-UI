@@ -10,6 +10,7 @@ import twoPeople from "../../assets/two-people.png";
 import { useDispatch, useSelector } from "react-redux";
 import { headerSliceAction } from "../../components/Header/headerSlice";
 import { useEffect } from "react";
+import { searchBarSliceAction } from "../../components/SearchBar/searchBarSlice";
 
 const Home = () => {
 
@@ -19,6 +20,7 @@ const Home = () => {
       behavior: "smooth",
     });
 
+    dispatch(searchBarSliceAction.setSearch({inComponent: "home"}));
     // if (loginInfo.role === "employer") {
     //   dispatch(headerSliceAction.setLoginInfo({ Authenticated: false }));
     //   localStorage.removeItem("auth");

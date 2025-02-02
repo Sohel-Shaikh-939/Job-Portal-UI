@@ -2,25 +2,47 @@ import { IoIosSearch } from "react-icons/io";
 import { IoBagOutline } from "react-icons/io5";
 import { CiLocationOn } from "react-icons/ci";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { searchBarSliceAction } from "./searchBarSlice";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
-      const [showResponsiveSearch, setResponsiveSearch] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [showResponsiveSearch, setResponsiveSearch] = useState(false);
+  const {inComponent} = useSelector(store => store.SearchBar);
 
-    const handleHiddenSearchBar = () => {
-        setResponsiveSearch(true);
+  const handleHiddenSearchBar = () => {
+    setResponsiveSearch(true);
+  };
+
+  const handleSearchClicked = async (e) => {
+    e.preventDefault();
+    dispatch(
+      searchBarSliceAction.setSearch({
+        title: e.target.title.value,
+        experience: e.target.experience.value,
+        location: e.target.location.value,
+      })
+    );
+    if (inComponent === "home") {
+      navigate("/Jobs");
     }
-    
+  };
+
   return (
     <>
-      <form action="" className="mt-7 z-40">
+      <form className="mt-7 z-40" onSubmit={handleSearchClicked}>
         <div className="hidden md:flex md:flex-col lg:flex-row py-4 bg-white w-fit px-5 rounded-xl text-lg md:items-center z-50 md:w-96 lg:w-fit md:space-y-3 lg:space-y-0 align-middle border border-slate-200">
           <div className="flex items-center gap-2">
             <IoIosSearch className="opacity-65" />
             <input
               type="text"
-              name=""
+              name="title"
               placeholder="Search jobs by 'title' "
               className="outline-none md:leading-10"
+              required
             />
           </div>
           <div className="flex items-center gap-2">
@@ -28,9 +50,10 @@ const SearchBar = () => {
             <IoBagOutline className="opacity-65" />
             <input
               type="text"
-              name=""
+              name="experience"
               placeholder="Your Experience"
               className="outline-none md:leading-10"
+              required
             />
           </div>
           <div className="flex items-center gap-2">
@@ -38,9 +61,10 @@ const SearchBar = () => {
             <CiLocationOn />
             <input
               type="text"
-              name=""
+              name="location"
               className="outline-none md:leading-10"
               placeholder="Search by area"
+              required
             />
           </div>
           <input
@@ -74,7 +98,7 @@ const SearchBar = () => {
               <IoIosSearch className="opacity-65" />
               <input
                 type="text"
-                name=""
+                name="title"
                 placeholder="Search jobs by 'title' "
                 className="outline-none md:leading-10"
               />
@@ -83,7 +107,7 @@ const SearchBar = () => {
               <IoBagOutline className="opacity-65" />
               <input
                 type="text"
-                name=""
+                name="experience"
                 placeholder="Your Experience"
                 className="outline-none md:leading-10"
               />
@@ -92,7 +116,7 @@ const SearchBar = () => {
               <CiLocationOn />
               <input
                 type="text"
-                name=""
+                name="location"
                 className="outline-none md:leading-10"
                 placeholder="Search by area"
               />

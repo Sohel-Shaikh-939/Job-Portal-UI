@@ -10,13 +10,17 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { jobsSliceAction } from "./jobsSlice";
 import { jobSliceAction } from "../Job/jobSlice";
+import store from "../../store";
+import { searchBarSliceAction } from "../../components/SearchBar/searchBarSlice";
 
 const Jobs = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { jobs } = useSelector((store) => store.Jobs);
+  const { title, experience, location } = useSelector(store => store.SearchBar);
   const [showFilter, setShowFilter] = useState(false);
   const [filterApplied, setFilterApplied] = useState(false);
+  const initialRender = useRef(true);
   const form = useRef();
   const page = useRef(1);
   const salary = useRef(0);
@@ -28,9 +32,16 @@ const Jobs = () => {
       top: 0,
       behavior: "smooth",
     });
+    dispatch(searchBarSliceAction.setSearch({inComponent: "jobs"}));
     async function data() {
       const res = await axios.get(
-        `http://localhost:8080/jobs?page=${page.current}`
+        `http://localhost:8080/jobs?page=${page.current}${
+          salary.current ? `&salary=${salary.current}` : ""
+        }${sort.current !== 0 ? `&sort=${sort.current}` : ""}${
+          title ? `&title=${title}` : ""
+        }${experience ? `&experience=${experience}` : ""}${
+          location ? `&location=${location}` : ""
+        }`
       );
       if (res.data.status) {
         dispatch(jobsSliceAction.setJobs(res.data.data));
@@ -41,13 +52,24 @@ const Jobs = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if(initialRender.current){
+      initialRender.current = false;
+      return;
+    }
+    setNoMore(false);
+    page.current = 0;
+    dispatch(jobsSliceAction.setJobsEmpty());
+    handleLoadMore();
+  },[location,location,title])
+
   const handleLoadMore = async () => {
 
     page.current++;
     const res = await axios.get(
       `http://localhost:8080/jobs?page=${page.current}${
         salary.current ? `&salary=${salary.current}` : ""
-      }${sort.current !== 0 ? `&sort=${sort.current}` : ""}`
+      }${sort.current !== 0 ? `&sort=${sort.current}` : ""}${title ? `&title=${title}`: ""}${experience ? `&experience=${experience}`: ""}${location ? `&location=${location}`: ""}`
     );
     if (!res.data.count) {
       setNoMore(true);
@@ -262,20 +284,20 @@ const Jobs = () => {
                 </div>
 
                 <div className="flex gap-2">
+                  {job.shift.map((shift, ind) => (
+                    <div className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65" key={ind}>
+                      {shift}
+                    </div>
+                  ))}
                   <div className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65">
-                    Full Time
-                  </div>
-                  <div className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65">
-                    Min. 2 years
+                    Min. {job.experience}
                   </div>
                 </div>
               </div>
             ))}
             <div>
               {noMore ? (
-                <div
-                  className="py-4 px-7 bg-faintGreen rounded-md hover:scale-105 text-white text-xl font-semibold m-auto w-fit transition-all duration-300"
-                >
+                <div className="py-4 px-7 bg-faintGreen rounded-md hover:scale-105 text-white text-xl font-semibold m-auto w-fit transition-all duration-300">
                   No More Jobs
                 </div>
               ) : (
