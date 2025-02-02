@@ -5,7 +5,7 @@ const employerProfileSlice = createSlice({
   initialState: { employerInfo: {} },
   reducers: {
     setEmployerInfo: (store, action) => {
-      store.employerInfo = action.payload;
+      store.employerInfo = {...store.employerInfo, ...action.payload};
     },
   },
 });

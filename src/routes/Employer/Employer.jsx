@@ -22,8 +22,8 @@ const Employer = () => {
       return ()=>{
         dispatch(headerSliceAction.setIsInEmployerSection(false));
         dispatch(employerSliceAction.setCurrentPage("jobs"));
-        dispatch(headerSliceAction.setLoginInfo({ Authenticated: false }));
-        localStorage.removeItem("auth");
+        // dispatch(headerSliceAction.setLoginInfo({ Authenticated: false }));
+        // localStorage.removeItem("auth");
       }
   },[]);
 

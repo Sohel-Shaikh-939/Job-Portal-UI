@@ -11,8 +11,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { headerSliceAction } from "../../components/Header/headerSlice";
 import { useEffect } from "react";
 import { searchBarSliceAction } from "../../components/SearchBar/searchBarSlice";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo({
@@ -21,10 +24,11 @@ const Home = () => {
     });
 
     dispatch(searchBarSliceAction.setSearch({inComponent: "home"}));
-    // if (loginInfo.role === "employer") {
-    //   dispatch(headerSliceAction.setLoginInfo({ Authenticated: false }));
-    //   localStorage.removeItem("auth");
-    // }  
+    if (loginInfo.role === "employer") {
+      // dispatch(headerSliceAction.setLoginInfo({ Authenticated: false }));
+      // localStorage.removeItem("auth");
+      navigate("/Employer");
+    }  
   },[])
 
   const scrollData = [
