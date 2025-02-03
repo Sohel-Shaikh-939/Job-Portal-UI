@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import tmp from "../../assets/logo.webp";
 import { PiBagSimpleFill } from "react-icons/pi";
 import { RiUserSearchFill } from "react-icons/ri";
 import { SiGoogleforms } from "react-icons/si";
@@ -36,7 +35,15 @@ const Employer = () => {
         <section className="bg-faintGray  min-h-[100vh] w-full flex relative">
           <div className="bg-white min-h-full py-6 border border-slate-200 space-y-8 hidden md:block">
             <div className="flex items-center gap-4 px-9">
-              <img src={tmp} alt="" className="w-12 rounded-md" />
+              <div className="w-12 h-12 rounded-md overflow-hidden">
+                <img
+                  src={`http://localhost:8080/Upload/${
+                    employerInfo.compimg
+                  }?n=${Date.now()}`}
+                  alt=""
+                  className="h-full w-full"
+                />
+              </div>
               <h1 className="font-semibold opacity-85 w-fit text-nowrap pr-8">
                 {employerInfo.compname}
               </h1>
@@ -92,7 +99,15 @@ const Employer = () => {
                } bottom-0 md:hidden transition-all duration-500 z-50`}
           >
             <div className="flex items-center gap-4 px-9 relative">
-              <img src={tmp} alt="" className="w-12 rounded-md" />
+              <div className="w-12 h-12 rounded-md">
+                <img
+                  src={`http://localhost:8080/Upload/${
+                    employerInfo.compimg
+                  }?n=${Date.now()}`}
+                  alt=""
+                  className="h-full w-full"
+                />
+              </div>
               <h1 className="font-semibold opacity-85">
                 {employerInfo.compname}
               </h1>

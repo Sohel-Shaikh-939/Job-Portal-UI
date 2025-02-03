@@ -97,7 +97,8 @@ const Header = () => {
   const handleLogout = () => {
     handleHideProfile();
     localStorage.removeItem("auth");
-    dispatch(headerSliceAction.setLoginInfo({Authenticated: false}))
+    dispatch(headerSliceAction.setLoginInfo({Authenticated: false}));
+    dispatch(headerSliceAction.setLoginInfo({role:""}))
     navigate("/");
   }
 
@@ -146,12 +147,16 @@ const Header = () => {
                 <RxCross1 className="text-lg" />
               </div>
             ) : (
-              <img
-                src={logo}
-                alt=""
-                className="w-12 rounded-full cursor-pointer"
-                onClick={handleShowProfile}
-              />
+              <div className="w-12 h-12 rounded-full cursor-pointer overflow-hidden">
+                <img
+                  src={`http://localhost:8080/Upload/${
+                    loginInfo.img
+                  }?n=${Date.now()}`}
+                  alt="Profile Pic"
+                  onClick={handleShowProfile}
+                  className="h-full w-full"
+                />
+              </div>
             )}
             <div
               className={`${
@@ -159,8 +164,14 @@ const Header = () => {
               } bg-white w-[300px] rounded-xl shadow-xl border border-slate-200 -bottom-48 right-0 p-4 transition-all duration-300`}
             >
               <div className="flex gap-3 items-center pb-3 border-b border-b-black border-opacity-25">
-                <div>
-                  <img src={logo} alt="" className="w-11 rounded-full" />
+                <div className="w-11 h-11 rounded-full cursor-pointer overflow-hidden">
+                  <img
+                    src={`http://localhost:8080/Upload/${
+                      loginInfo.img
+                    }?n=${Date.now()}`}
+                    alt=""
+                    className="h-full w-full"
+                  />
                 </div>
                 <div>
                   <div className="font-semibold">{loginInfo.name}</div>

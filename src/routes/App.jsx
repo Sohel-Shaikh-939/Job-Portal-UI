@@ -36,6 +36,7 @@ const App = () => {
               Authenticated: res.data.authenticated,
               name: res.data.data.candname,
               mail: res.data.data.mail,
+              img: res.data.data.img,
             })
           );
           dispatch(candidateSliceAction.setCandidateInfo(res.data.data));
@@ -46,6 +47,7 @@ const App = () => {
               Authenticated: res.data.authenticated,
               name: res.data.data.empname,
               mail: res.data.data.mail,
+              img: res.data.data.compimg,
             })
           );
           dispatch(employerProfileSliceAction.setEmployerInfo(res.data.data));

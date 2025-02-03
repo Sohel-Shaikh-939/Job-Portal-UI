@@ -5,7 +5,7 @@ const candidateSlice = createSlice({
   initialState: {candidateInfo:{}},
   reducers: {
     setCandidateInfo: (store, action) => {
-      store.candidateInfo = action.payload;
+      store.candidateInfo = {...store.candidateInfo, ...action.payload};
     },
   },
 });

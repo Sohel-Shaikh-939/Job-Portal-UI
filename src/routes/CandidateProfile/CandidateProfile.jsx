@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { candidateSliceAction } from "./candidateSlice";
 import axios from "axios";
+import { headerSliceAction } from "../../components/Header/headerSlice";
 
 const CandidateProfile = () => {
   const { candidateInfo } = useSelector((store) => store.Candidate);
@@ -36,9 +37,23 @@ const CandidateProfile = () => {
     setShowPicEdit(false);
   };
 
-  const handleProfileChange = (e) => {
+  const handleProfileChange = async (e) => {
     e.preventDefault();
     hidePicSaveBTN();
+    const res = await axios.post(
+      "http://localhost:8080/changeprofilepic",
+      e.currentTarget,
+      {
+        headers: {
+          Authorization: localStorage.getItem("auth"),
+        },
+      }
+    );
+    
+    if (res.status) {
+      dispatch(headerSliceAction.setLoginInfo({img: res.data.img}));
+      dispatch(candidateSliceAction.setCandidateInfo({img:res.data.img}));
+    } 
   };
 
   const handleCandidateUpdate = async (e) => {
@@ -452,10 +467,18 @@ const CandidateProfile = () => {
             <div className="flex flex-col gap-4">
               <div className="p-9 bg-white rounded-xl flex gap-8">
                 <div className="flex flex-col items-center gap-3">
-                  <img src={tmp} alt="" className="w-20 rounded-full" />
+                  <div className="w-20 h-20 rounded-full overflow-hidden bg-contain">
+                    <img
+                      src={`http://localhost:8080/Upload/${
+                        candidateInfo.img
+                      }?n=${Date.now()}`}
+                      alt="PP"
+                      className="w-full h-full"
+                    />
+                  </div>
                   <form
-                    action=""
                     className="flex flex-col gap-3"
+                    encType="multipart/form-data"
                     onSubmit={handleProfileChange}
                   >
                     <label
@@ -465,7 +488,19 @@ const CandidateProfile = () => {
                     >
                       Change Photo
                     </label>
-                    <input type="file" name="" id="pic" className="hidden" />
+                    <input
+                      type="text"
+                      name="imgname"
+                      defaultValue={candidateInfo.id}
+                      className="hidden"
+                      readOnly
+                    />
+                    <input
+                      type="file"
+                      name="candpp"
+                      id="pic"
+                      className="hidden"
+                    />
                     {showPicEdit && (
                       <button
                         type="submit"

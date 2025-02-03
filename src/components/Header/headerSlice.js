@@ -9,7 +9,8 @@ const headerSlice = createSlice({
       role: "",
       Authenticated: false,
       name:"",
-      mail:""
+      mail:"",
+      img:"",
     },
     loading: true,
   },

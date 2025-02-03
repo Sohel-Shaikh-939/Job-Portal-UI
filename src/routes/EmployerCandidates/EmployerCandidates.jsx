@@ -80,7 +80,7 @@ const EmployerCandidates = () => {
               >
                 <div className="flex flex-col lg:flex-row gap-6 justify-between">
                   <div className="flex gap-5">
-                    <img src={tmp} alt="" className="w-16 rounded-md" />
+                    <img src={`http://localhost:8080/Upload/${candidate.img}`} alt="" className="w-16 rounded-md" />
                     <div className="space-y-2">
                       <div className="font-semibold text-xl">
                         {candidate.candname}
