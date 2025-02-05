@@ -84,6 +84,21 @@ const Home = () => {
   const { loginInfo } = useSelector((store) => store.Header);
   const dispatch = useDispatch();
 
+  const handleCardClicked = (choice) => {
+      switch (choice) {
+        case "Fresher":
+          dispatch(
+            searchBarSliceAction.setSearch({
+              title: "a",
+              experience: "Fresher",
+              location: "a",
+            })
+          );
+          break;
+      }
+      navigate("/Jobs");
+  }
+
   
   return (
     <>
@@ -135,161 +150,159 @@ const Home = () => {
         </div>
 
         {/* Box First Freshers*/}
-        <a href="#">
-          <div
-            className="h-72 max-h-72  max-w-96 py-10 px-7 flex flex-col justify-between 
-          
-          
+        <div
+          className="h-72 max-h-72  max-w-96 py-10 px-7 flex flex-col justify-between 
           bg-gradient-to-t from-orange-200 to-orange-50 lg:bg-gradient-to-t lg:from-white lg:to-white lg:hover:bg-gradient-to-t hover:from-orange-200 hover:to-orange-50 transition-all duration-150 
-          
-          
           border border-orange-500 lg:border-slate-200 lg:hover:border-orange-500
-          
-          
           rounded-3xl relative group m-auto overflow-hidden"
-          >
-            <div className="space-y-5 z-10">
-              <h1 className="font-semibold opacity-75 ">TRENDING AT #1</h1>
-              <h1 className="text-2xl font-bold text-orange-600 lg:text-black lg:group-hover:text-orange-600">
-                Jobs for Freshers
-              </h1>
-            </div>
-
-            <div className="z-10">
-              <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-orange-400 lg:bg-transparent lg:group-hover:bg-orange-400 transition-all duration-200 text-white lg:text-black lg:group-hover:text-white flex items-center ">
-                View all
-                <IoIosArrowForward className="ml-3" />
-              </button>
-            </div>
-
-            <img
-              src={fresher}
-              alt=""
-              className="absolute right-2 bottom-0 w-32 md:w-44 -z-0"
-            />
+          onClick={() => {
+            handleCardClicked("Fresher");
+          }}
+        >
+          <div className="space-y-5 z-10">
+            <h1 className="font-semibold opacity-75 ">TRENDING AT #1</h1>
+            <h1 className="text-2xl font-bold text-orange-600 lg:text-black lg:group-hover:text-orange-600">
+              Jobs for Freshers
+            </h1>
           </div>
-        </a>
 
-        <a href="#">
-          <div
-            className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between  rounded-3xl relative group 
+          <div className="z-10">
+            <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-orange-400 lg:bg-transparent lg:group-hover:bg-orange-400 transition-all duration-200 text-white lg:text-black lg:group-hover:text-white flex items-center ">
+              View all
+              <IoIosArrowForward className="ml-3" />
+            </button>
+          </div>
+
+          <img
+            src={fresher}
+            alt=""
+            className="absolute right-2 bottom-0 w-32 md:w-44 -z-0"
+          />
+        </div>
+
+        <div
+          className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between  rounded-3xl relative group 
           
-        bg-gradient-to-t from-purple-200 to-purple-50 lg:bg-gradient-to-t lg:from-white lg:to-white lg:hover:bg-gradient-to-t hover:from-purple-200 hover:to-purple-50 transition-all duration-150
+        bg-gradient-to-t cursor-pointer from-purple-200 to-purple-50 lg:bg-gradient-to-t lg:from-white lg:to-white lg:hover:bg-gradient-to-t hover:from-purple-200 hover:to-purple-50 transition-all duration-150
           
           border border-purple-500 lg:border-slate-200 lg:hover:border-purple-500 m-auto overflow-hidden"
-          >
-            <div className="space-y-5 z-10">
-              <h1 className="font-semibold opacity-75">TRENDING AT #2</h1>
-              <h1 className="text-2xl font-bold text-purple-900 lg:text-black lg:group-hover:text-purple-900">
-                Work from home Jobs
-              </h1>
-            </div>
-
-            <div className="z-10">
-              <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-purple-600 lg:bg-transparent lg:group-hover:bg-purple-600 transition-all duration-200 text-white lg:text-black lg:group-hover:text-white flex items-center ">
-                View all
-                <IoIosArrowForward className="ml-3" />
-              </button>
-            </div>
-
-            <img
-              src={workFromHome}
-              alt=""
-              className="absolute right-2 bottom-0 w-32 md:w-44 -z-0"
-            />
+          onClick={() => {
+            handleCardClicked("Home");
+          }}
+        >
+          <div className="space-y-5 z-10">
+            <h1 className="font-semibold opacity-75">TRENDING AT #2</h1>
+            <h1 className="text-2xl font-bold text-purple-900 lg:text-black lg:group-hover:text-purple-900">
+              Work from home Jobs
+            </h1>
           </div>
-        </a>
 
-        <a href="#">
-          <div
-            className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between rounded-3xl relative group 
+          <div className="z-10">
+            <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-purple-600 lg:bg-transparent lg:group-hover:bg-purple-600 transition-all duration-200 text-white lg:text-black lg:group-hover:text-white flex items-center ">
+              View all
+              <IoIosArrowForward className="ml-3" />
+            </button>
+          </div>
+
+          <img
+            src={workFromHome}
+            alt=""
+            className="absolute right-2 bottom-0 w-32 md:w-44 -z-0"
+          />
+        </div>
+
+        <div
+          className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between rounded-3xl relative group 
           
-          bg-gradient-to-t from-red-200 to-red-50 lg:bg-gradient-to-t lg:from-white lg:to-white lg:hover:bg-gradient-to-t hover:from-red-200 hover:to-red-50 
+          bg-gradient-to-t from-red-200 to-red-50 lg:bg-gradient-to-t lg:from-white lg:to-white lg:hover:bg-gradient-to-t cursor-pointer hover:from-red-200 hover:to-red-50 
           
           transition-all duration-150 border border-red-500  lg:border-slate-200 lg:hover:border-red-500 m-auto"
-          >
-            <div className="space-y-5 z-10">
-              <h1 className="font-semibold opacity-75 ">TRENDING AT #3</h1>
-              <h1 className="text-2xl font-bold text-red-600 lg:text-black lg:group-hover:text-red-600">
-                Part time Jobs
-              </h1>
-            </div>
-
-            <div className="z-10">
-              <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-red-600 lg:bg-transparent lg:group-hover:bg-red-600 transition-all duration-200 text-white lg:text-black lg:group-hover:text-white flex items-center ">
-                View all
-                <IoIosArrowForward className="ml-3" />
-              </button>
-            </div>
-
-            <img
-              src={partTime}
-              alt=""
-              className="absolute right-2 bottom-0 w-28 md:w-36 -z-0"
-            />
+          onClick={() => {
+            handleCardClicked("Part");
+          }}
+        >
+          <div className="space-y-5 z-10">
+            <h1 className="font-semibold opacity-75 ">TRENDING AT #3</h1>
+            <h1 className="text-2xl font-bold text-red-600 lg:text-black lg:group-hover:text-red-600">
+              Part time Jobs
+            </h1>
           </div>
-        </a>
 
-        <a href="#">
-          <div
-            className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between rounded-3xl relative group 
+          <div className="z-10">
+            <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-red-600 lg:bg-transparent lg:group-hover:bg-red-600 transition-all duration-200 text-white lg:text-black lg:group-hover:text-white flex items-center ">
+              View all
+              <IoIosArrowForward className="ml-3" />
+            </button>
+          </div>
+
+          <img
+            src={partTime}
+            alt=""
+            className="absolute right-2 bottom-0 w-28 md:w-36 -z-0"
+          />
+        </div>
+
+        <div
+          className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between rounded-3xl relative group 
           
           bg-gradient-to-t from-green-200 to-green-50 lg:bg-gradient-to-t lg:from-white lg:to-white lg:hover:bg-gradient-to-t hover:from-green-200 hover:to-green-50
           
-          transition-all duration-150 border border-green-500 lg:border-slate-200 lg:hover:border-green-500 m-auto"
-          >
-            <div className="space-y-5 z-10">
-              <h1 className="font-semibold opacity-75 ">TRENDING AT #4</h1>
-              <h1 className="text-2xl font-bold text-green-700 lg:text-black lg:group-hover:text-green-700">
-                Jobs for Women
-              </h1>
-            </div>
-
-            <div className="z-10">
-              <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-green-400 lg:bg-transparent lg:group-hover:bg-green-400 transition-all duration-200 text-white lg:text-black lg:group-hover:text-white flex items-center ">
-                View all
-                <IoIosArrowForward className="ml-3" />
-              </button>
-            </div>
-
-            <img
-              src={women}
-              alt=""
-              className="absolute right-2 bottom-0 w-28 md:w-32 -z-0"
-            />
+          transition-all duration-150 border cursor-pointer border-green-500 lg:border-slate-200 lg:hover:border-green-500 m-auto"
+          onClick={() => {
+            handleCardClicked("Women");
+          }}
+        >
+          <div className="space-y-5 z-10">
+            <h1 className="font-semibold opacity-75 ">TRENDING AT #4</h1>
+            <h1 className="text-2xl font-bold text-green-700 lg:text-black lg:group-hover:text-green-700">
+              Jobs for Women
+            </h1>
           </div>
-        </a>
 
-        <a href="#">
-          <div
-            className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between rounded-3xl relative group 
-          
+          <div className="z-10">
+            <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-green-400 lg:bg-transparent lg:group-hover:bg-green-400 transition-all duration-200 text-white lg:text-black lg:group-hover:text-white flex items-center ">
+              View all
+              <IoIosArrowForward className="ml-3" />
+            </button>
+          </div>
+
+          <img
+            src={women}
+            alt=""
+            className="absolute right-2 bottom-0 w-28 md:w-32 -z-0"
+          />
+        </div>
+
+        <div
+          className="h-72 max-h-72 max-w-96 py-10 px-7 flex flex-col justify-between rounded-3xl relative group cursor-pointer
           bg-gradient-to-t from-blue-200 to-blue-50 lg:bg-gradient-to-t lg:from-white lg:to-white lg:hover:bg-gradient-to-t hover:from-blue-200 hover:to-blue-50
           
           transition-all duration-150 border border-blue-500 lg:border-slate-200  lg:hover:border-blue-500 m-auto"
-          >
-            <div className="space-y-5 z-10">
-              <h1 className="font-semibold opacity-75 ">TRENDING AT #5</h1>
-              <h1 className="text-2xl font-bold text-blue-600 lg:text-black lg:group-hover:text-blue-600">
-                International Jobs
-              </h1>
-            </div>
-
-            <div className="z-10">
-              <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-blue-400 lg:bg-transparent lg:group-hover:bg-blue-400 transition-all duration-200 text-white lg:text-black group-hover:text-white flex items-center ">
-                View all
-                <IoIosArrowForward className="ml-3" />
-              </button>
-            </div>
-
-            <img
-              src={international}
-              alt=""
-              className="absolute right-2 bottom-0 w-40
-               md:w-48 -z-0"
-            />
+          onClick={() => {
+            handleCardClicked("International");
+          }}
+        >
+          <div className="space-y-5 z-10">
+            <h1 className="font-semibold opacity-75 ">TRENDING AT #5</h1>
+            <h1 className="text-2xl font-bold text-blue-600 lg:text-black lg:group-hover:text-blue-600">
+              International Jobs
+            </h1>
           </div>
-        </a>
+
+          <div className="z-10">
+            <button className="text-lg font-semibold py-2 px-4 rounded-xl bg-blue-400 lg:bg-transparent lg:group-hover:bg-blue-400 transition-all duration-200 text-white lg:text-black group-hover:text-white flex items-center ">
+              View all
+              <IoIosArrowForward className="ml-3" />
+            </button>
+          </div>
+
+          <img
+            src={international}
+            alt=""
+            className="absolute right-2 bottom-0 w-40
+               md:w-48 -z-0"
+          />
+        </div>
       </section>
 
       {/* Job Post card section for Employers */}

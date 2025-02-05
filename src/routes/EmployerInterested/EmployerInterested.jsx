@@ -9,7 +9,6 @@ import { IoCopyOutline } from "react-icons/io5";
 import { IoLocationSharp } from "react-icons/io5";
 import axios from "axios";
 import { homeSliceAction } from "../Home/homeSlice";
-import { useNavigate } from "react-router-dom";
 
 const EmployerInterested = () => {
   const dispatch = useDispatch();

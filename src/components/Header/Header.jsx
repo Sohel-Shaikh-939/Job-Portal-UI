@@ -293,7 +293,7 @@ const Header = () => {
                 type="number"
                 name="otp"
                 id=""
-                placeholder="Eg: xyz@gmail.com"
+                placeholder="xxxxx"
                 className="outline-faintGreen border border-slate-300 p-2 rounded-lg"
               />
               <hr />

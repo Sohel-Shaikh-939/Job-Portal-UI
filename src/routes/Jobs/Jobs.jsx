@@ -64,14 +64,12 @@ const Jobs = () => {
   },[location,location,title])
 
   const handleLoadMore = async () => {
-    console.log("here")
     page.current++;
     const res = await axios.get(
       `http://localhost:8080/jobs?page=${page.current}${
         salary.current ? `&salary=${salary.current}` : ""
       }${sort.current !== 0 ? `&sort=${sort.current}` : ""}${title ? `&title=${title}`: ""}${experience ? `&experience=${experience}`: ""}${location ? `&location=${location}`: ""}`
     );
-    console.log(res.data)
     if (!res.data.count) {
       setNoMore(true);
     }
@@ -87,7 +85,6 @@ const Jobs = () => {
     salary.current = e.target.minsal.value;
     sort.current = e.target.sort.value;
     page.current = 0;
-    console.log(salary.current,sort.current)
     dispatch(jobsSliceAction.setJobsEmpty());
     handleLoadMore();
   };

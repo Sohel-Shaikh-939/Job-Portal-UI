@@ -19,7 +19,6 @@ const SearchBar = () => {
 
   const handleSearchClicked = async (e) => {
     e.preventDefault();
-    console.log(e.target.title.value, e.target.experience.value,e.target.location.value);
     dispatch(
       searchBarSliceAction.setSearch({
         title: e.target.title.value,
