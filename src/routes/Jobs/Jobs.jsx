@@ -35,7 +35,7 @@ const Jobs = () => {
     dispatch(searchBarSliceAction.setSearch({inComponent: "jobs"}));
     async function data() {
       const res = await axios.get(
-        `http://localhost:8080/jobs?page=${page.current}${
+        `http://localhost:8080/getjobs?page=${page.current}${
           salary.current ? `&salary=${salary.current}` : ""
         }${sort.current !== 0 ? `&sort=${sort.current}` : ""}${
           title ? `&title=${title}` : ""
@@ -66,7 +66,7 @@ const Jobs = () => {
   const handleLoadMore = async () => {
     page.current++;
     const res = await axios.get(
-      `http://localhost:8080/jobs?page=${page.current}${
+      `http://localhost:8080/getjobs?page=${page.current}${
         salary.current ? `&salary=${salary.current}` : ""
       }${sort.current !== 0 ? `&sort=${sort.current}` : ""}${title ? `&title=${title}`: ""}${experience ? `&experience=${experience}`: ""}${location ? `&location=${location}`: ""}`
     );
