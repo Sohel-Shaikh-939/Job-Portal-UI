@@ -7,7 +7,6 @@ import { PiBagSimpleFill } from "react-icons/pi";
 import { FaLanguage } from "react-icons/fa";
 import { IoCopyOutline } from "react-icons/io5";
 import { IoLocationSharp } from "react-icons/io5";
-import tmp from "../../assets/logo.webp";
 import axios from "axios";
 import { homeSliceAction } from "../Home/homeSlice";
 import { useNavigate } from "react-router-dom";
@@ -45,11 +44,20 @@ const EmployerInterested = () => {
         </div>
         <div className="py-12 space-y-4 ">
           {employerInfo.appliedcandidates.length ? (
-            employerInfo.appliedcandidates.map((cand,ind) => (
-              <div className="bg-white p-5 rounded-md shadow-xl  md:pb-10 space-y-8" key={ind}>
+            employerInfo.appliedcandidates.map((cand, ind) => (
+              <div
+                className="bg-white p-5 rounded-md shadow-xl  md:pb-10 space-y-8"
+                key={ind}
+              >
                 <div className="flex flex-col lg:flex-row gap-6 justify-between">
                   <div className="flex gap-5">
-                    <img src={tmp} alt="" className="w-16 rounded-md" />
+                    <img
+                      src={`http://localhost:8080/Upload/${
+                        cand.img
+                      }?n=${Date.now()}`}
+                      alt=""
+                      className="w-16 rounded-md"
+                    />
                     <div className="space-y-2">
                       <div className="font-semibold text-xl">
                         {cand.candname}
@@ -109,16 +117,22 @@ const EmployerInterested = () => {
                     </div>
                     {employerInfo.postedjobs
                       .filter((job) => job.applicants.includes(cand.id))
-                      .map((job,ind) => {
-                        return <div className="text-lg text-faintGreen" key={ind}>{ind ? "|" : ""} {job.jtitle}</div>
+                      .map((job, ind) => {
+                        return (
+                          <div className="text-lg text-faintGreen" key={ind}>
+                            {ind ? "|" : ""} {job.jtitle}
+                          </div>
+                        );
                       })}
-                    
                   </div>
 
                   <div className="flex justify-center items-center">
-                    <button className="bg-red-500 text-white font-semibold px-4 py-2 md:py-2 md:px-9 rounded-md border border-slate-300" onClick={() => {
-                      handleReject(cand.id);
-                    }}>
+                    <button
+                      className="bg-red-500 text-white font-semibold px-4 py-2 md:py-2 md:px-9 rounded-md border border-slate-300"
+                      onClick={() => {
+                        handleReject(cand.id);
+                      }}
+                    >
                       Reject
                     </button>
                   </div>

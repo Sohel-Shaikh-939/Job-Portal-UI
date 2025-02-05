@@ -37,11 +37,11 @@ const Header = () => {
 
   const handleShowProfile = () => {
     setShowProfile(true);
-  }
+  };
 
   const handleHideProfile = () => {
     setShowProfile(false);
-  }
+  };
 
   const handleLoginOpt = (type) => {
     loginType.current = type;
@@ -85,7 +85,7 @@ const Header = () => {
         } else {
           navigate("/EmployerLogin");
         }
-      } 
+      }
       dispatch(headerSliceAction.setLoginInfo({ Authenticated: true }));
       // navigate("/Employer/")
     } else {
@@ -97,10 +97,10 @@ const Header = () => {
   const handleLogout = () => {
     handleHideProfile();
     localStorage.removeItem("auth");
-    dispatch(headerSliceAction.setLoginInfo({Authenticated: false}));
-    dispatch(headerSliceAction.setLoginInfo({role:""}))
+    dispatch(headerSliceAction.setLoginInfo({ Authenticated: false }));
+    dispatch(headerSliceAction.setLoginInfo({ role: "" }));
     navigate("/");
-  }
+  };
 
   return (
     <>
@@ -255,10 +255,22 @@ const Header = () => {
                 </Link>
               </li>
             </ul>
-            <div className="border-b border-b-black border-opacity-20"></div>
-            <div className="flex gap-3 items-center pl-6 pt-5">
-              <CiLogout className="text-xl text-red-700" /> Logout
-            </div>
+            {loginInfo.Authenticated ? (
+              <>
+                <div className="border-b border-b-black border-opacity-20"></div>
+                <div
+                  className="flex gap-3 items-center pl-6 pt-5"
+                  onClick={() => {
+                    handleLogout();
+                    handleCloseOptClick();
+                  }}
+                >
+                  <CiLogout className="text-xl text-red-700" /> Logout
+                </div>
+              </>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="bg-white h-fit w-fit mt-10 mr-8 p-2 rounded-full">

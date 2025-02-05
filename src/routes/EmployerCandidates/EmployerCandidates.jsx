@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { employerSliceAction } from "../Employer/employerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { IoLocationSharp } from "react-icons/io5";
-import tmp from "../../assets/logo.webp";
 import { IoPerson } from "react-icons/io5";
 import { HiAcademicCap } from "react-icons/hi2";
 import { PiBagSimpleFill } from "react-icons/pi";
@@ -73,90 +72,94 @@ const EmployerCandidates = () => {
         <div className="py-12 space-y-4 ">
           {candidates.length ? (
             <>
-            {candidates.map((candidate, ind) => (
-              <div
-                className="bg-white p-5 rounded-md shadow-xl  md:pb-10 space-y-8"
-                key={ind}
-              >
-                <div className="flex flex-col lg:flex-row gap-6 justify-between">
-                  <div className="flex gap-5">
-                    <img src={`http://localhost:8080/Upload/${candidate.img}`} alt="" className="w-16 rounded-md" />
-                    <div className="space-y-2">
-                      <div className="font-semibold text-xl">
-                        {candidate.candname}
+              {candidates.map((candidate, ind) => (
+                <div
+                  className="bg-white p-5 rounded-md shadow-xl  md:pb-10 space-y-8"
+                  key={ind}
+                >
+                  <div className="flex flex-col lg:flex-row gap-6 justify-between">
+                    <div className="flex gap-5">
+                      <img
+                        src={`http://localhost:8080/Upload/${candidate.img}`}
+                        alt=""
+                        className="w-16 rounded-md"
+                      />
+                      <div className="space-y-2">
+                        <div className="font-semibold text-xl">
+                          {candidate.candname}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <IoLocationSharp className="opacity-50 text-xl" />
+                          {candidate.location}
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <IoLocationSharp className="opacity-50 text-xl" />
-                        {candidate.location}
+                    </div>
+
+                    <div className="grid space-y-4 lg:space-y-0 grid-cols-2 lg:grid-cols-4 gap-x-12">
+                      <div className="flex gap-2 items-center">
+                        <HiAcademicCap className="opacity-50 text-xl self-start mt-3" />
+                        <div>
+                          <h1 className="text-base opacity-60 font-semibold">
+                            Education
+                          </h1>
+                          <div>{candidate.education}</div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 items-center">
+                        <PiBagSimpleFill className="opacity-50 text-xl self-start mt-3" />
+                        <div>
+                          <h1 className="text-base opacity-60 font-semibold">
+                            Experience
+                          </h1>
+                          <div>Min. {candidate.experience}</div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 items-center">
+                        <FaLanguage className="opacity-60 text-2xl self-start mt-2" />
+                        <div>
+                          <h1 className="text-base opacity-60 font-semibold">
+                            English Skill
+                          </h1>
+                          <div>{candidate.englvl}</div>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2 items-center">
+                        <IoPerson className="opacity-50 text-xl self-start mt-3" />
+                        <div>
+                          <h1 className="text-base opacity-60 font-semibold">
+                            Gender
+                          </h1>
+                          <div>{candidate.gender}</div>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="grid space-y-4 lg:space-y-0 grid-cols-2 lg:grid-cols-4 gap-x-12">
-                    <div className="flex gap-2 items-center">
-                      <HiAcademicCap className="opacity-50 text-xl self-start mt-3" />
-                      <div>
-                        <h1 className="text-base opacity-60 font-semibold">
-                          Education
-                        </h1>
-                        <div>{candidate.education}</div>
-                      </div>
+                  <div className="w-full bg-faintGray rounded-md p-3 flex justify-between items-center flex-wrap">
+                    <div className="text-base md:text-lg font-bold opacity-65">
+                      Contact mail :
                     </div>
-                    <div className="flex gap-2 items-center">
-                      <PiBagSimpleFill className="opacity-50 text-xl self-start mt-3" />
-                      <div>
-                        <h1 className="text-base opacity-60 font-semibold">
-                          Experience
-                        </h1>
-                        <div>Min. {candidate.experience}</div>
-                      </div>
+                    <div className="text-base md:text-lg font-semibold">
+                      {candidate.contactmail}
                     </div>
-                    <div className="flex gap-2 items-center">
-                      <FaLanguage className="opacity-60 text-2xl self-start mt-2" />
-                      <div>
-                        <h1 className="text-base opacity-60 font-semibold">
-                          English Skill
-                        </h1>
-                        <div>{candidate.englvl}</div>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2 items-center">
-                      <IoPerson className="opacity-50 text-xl self-start mt-3" />
-                      <div>
-                        <h1 className="text-base opacity-60 font-semibold">
-                          Gender
-                        </h1>
-                        <div>{candidate.gender}</div>
-                      </div>
-                    </div>
+                    <button
+                      className="p-2 bg-white border border-slate-500 rounded-md hover:scale-110 transition-all duration-300"
+                      value={"hhhhhh"}
+                      onClick={handleCopy}
+                    >
+                      <IoCopyOutline value="xyz.com" />
+                    </button>
                   </div>
                 </div>
-
-                <div className="w-full bg-faintGray rounded-md p-3 flex justify-between items-center flex-wrap">
-                  <div className="text-base md:text-lg font-bold opacity-65">
-                    Contact mail :
-                  </div>
-                  <div className="text-base md:text-lg font-semibold">
-                    {candidate.contactmail}
-                  </div>
-                  <button
-                    className="p-2 bg-white border border-slate-500 rounded-md hover:scale-110 transition-all duration-300"
-                    value={"hhhhhh"}
-                    onClick={handleCopy}
-                  >
-                    <IoCopyOutline value="xyz.com" />
-                  </button>
-                </div>
-              </div>
               ))}
               {noMore ? (
-                <div className="py-4 px-7 bg-faintGreen rounded-md hover:scale-105 text-white text-xl font-semibold m-auto w-fit transition-all duration-300">
-                  No More Jobs
+                <div className="py-2 px-4 md:py-4 md:px-7 bg-faintGreen rounded-md hover:scale-105 text-white text-xl font-semibold m-auto w-fit transition-all duration-300">
+                  No More Candidates
                 </div>
               ) : (
                 <div
-                  className="py-4 px-7 bg-faintGreen rounded-md hover:scale-105 text-white text-xl font-semibold m-auto w-fit transition-all duration-300"
+                  className="py-2 px-4 md:py-4 md:px-7 bg-faintGreen rounded-md hover:scale-105 text-white text-xl font-semibold m-auto w-fit transition-all duration-300"
                   onClick={handleLoadMore}
                 >
                   Load More

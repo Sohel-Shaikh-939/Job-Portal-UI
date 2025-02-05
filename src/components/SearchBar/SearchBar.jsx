@@ -19,6 +19,7 @@ const SearchBar = () => {
 
   const handleSearchClicked = async (e) => {
     e.preventDefault();
+    console.log(e.target.title.value, e.target.experience.value,e.target.location.value);
     dispatch(
       searchBarSliceAction.setSearch({
         title: e.target.title.value,
@@ -26,6 +27,7 @@ const SearchBar = () => {
         location: e.target.location.value,
       })
     );
+    
     if (inComponent === "home") {
       navigate("/Jobs");
     }
@@ -74,10 +76,11 @@ const SearchBar = () => {
                  bg-faintGreen  rounded ml-4 text-md font-semibold "
           />
         </div>
+        </form>
 
         {/* This searchbar is only for click, after click original searchbar will be visible */}
         {!showResponsiveSearch && (
-          <div className="md:hidden w-full h-14 px-4 flex bg-white justify-center overflow-hidden rounded-lg transition-all ">
+          <div className="md:hidden w-full h-14 px-4 flex bg-white justify-center items-center overflow-hidden rounded-lg transition-all ">
             <div className="content-center">
               <IoIosSearch className="opacity-65 text-2xl " />
             </div>
@@ -93,6 +96,7 @@ const SearchBar = () => {
 
         {/* This is the part which will be used in small screen sizes */}
         {showResponsiveSearch && (
+          <form className="mt-7 z-40" onSubmit={handleSearchClicked}>
           <div className="max-w-96 flex flex-col py-4 bg-white px-5 rounded-xl text-lg z-50 align-middle space-y-5 transition-all md:hidden">
             <div className="flex items-center gap-2">
               <IoIosSearch className="opacity-65" />
@@ -101,6 +105,7 @@ const SearchBar = () => {
                 name="title"
                 placeholder="Search jobs by 'title' "
                 className="outline-none md:leading-10"
+                required
               />
             </div>
             <div className="flex items-center gap-2">
@@ -110,6 +115,7 @@ const SearchBar = () => {
                 name="experience"
                 placeholder="Your Experience"
                 className="outline-none md:leading-10"
+                required
               />
             </div>
             <div className="flex items-center gap-2">
@@ -119,6 +125,7 @@ const SearchBar = () => {
                 name="location"
                 className="outline-none md:leading-10"
                 placeholder="Search by area"
+                required
               />
             </div>
             <input
@@ -128,8 +135,8 @@ const SearchBar = () => {
                  bg-faintGreen  rounded  text-md font-semibold "
             />
           </div>
-        )}
       </form>
+        )}
     </>
   );
 };

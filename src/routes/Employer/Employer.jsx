@@ -96,7 +96,7 @@ const Employer = () => {
             className={`bg-white  py-6 border border-slate-200 space-y-8 absolute top-0
                ${
                  showEmployerOpt ? "left-0" : "-left-full"
-               } bottom-0 md:hidden transition-all duration-500 z-50`}
+               } bottom-0 md:hidden transition-all duration-500 z-40`}
           >
             <div className="flex items-center gap-4 px-9 relative">
               <div className="w-12 h-12 rounded-md">

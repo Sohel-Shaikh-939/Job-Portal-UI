@@ -1,4 +1,3 @@
-import tmp from "../../assets/logo.webp";
 import { IoLocationSharp } from "react-icons/io5";
 import { HiAcademicCap } from "react-icons/hi2";
 import { FaPen } from "react-icons/fa";

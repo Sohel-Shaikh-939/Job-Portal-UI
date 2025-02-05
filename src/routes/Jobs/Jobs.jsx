@@ -64,13 +64,14 @@ const Jobs = () => {
   },[location,location,title])
 
   const handleLoadMore = async () => {
-
+    console.log("here")
     page.current++;
     const res = await axios.get(
       `http://localhost:8080/jobs?page=${page.current}${
         salary.current ? `&salary=${salary.current}` : ""
       }${sort.current !== 0 ? `&sort=${sort.current}` : ""}${title ? `&title=${title}`: ""}${experience ? `&experience=${experience}`: ""}${location ? `&location=${location}`: ""}`
     );
+    console.log(res.data)
     if (!res.data.count) {
       setNoMore(true);
     }
@@ -117,7 +118,7 @@ const Jobs = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center pb-6">
+      <div className="flex justify-center items-center pl-10 ">
         <SearchBar></SearchBar>
       </div>
 
