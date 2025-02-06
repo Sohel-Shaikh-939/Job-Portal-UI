@@ -11,12 +11,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { headerSliceAction } from "./headerSlice";
 import axios from "axios";
+import Spinner from "../Spinner/Spinner";
 
 const Header = () => {
   const [showSideBar, setShowSideBar] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { isInEmployerSection } = useSelector((store) => store.Header);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,6 +57,7 @@ const Header = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let res = await axios.post("http://localhost:8080/login", {
       mail: e.target.mail.value,
     });
@@ -66,10 +69,12 @@ const Header = () => {
       e.target.mail.value = "";
       e.target.mail.placeholder = "Unable to send otp";
     }
+    setLoading(false); 
   };
 
   const handleOtp = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let res = await axios.post("http://localhost:8080/verify", {
       mail: mail.current,
       otp: e.target.otp.value,
@@ -86,12 +91,14 @@ const Header = () => {
           navigate("/EmployerLogin");
         }
       }
+      e.target.otp.value = "";
       dispatch(headerSliceAction.setLoginInfo({ Authenticated: true }));
       // navigate("/Employer/")
     } else {
       e.target.otp.value = "";
       e.target.otp.placeholder = "Wrong otp";
     }
+    setLoading(false);
   };
 
   const handleLogout = () => {
@@ -309,6 +316,13 @@ const Header = () => {
                   onClick={handleHideLogin}
                 />
               </div>
+              <div
+                className={`${
+                  loading ? "absolute" : "hidden"
+                } z-50 bg-white rounded-lg flex justify-center items-center top-0 left-0 right-0 bottom-0 `}
+              >
+                <Spinner />
+              </div>
             </div>
           </form>
         ) : (
@@ -334,6 +348,13 @@ const Header = () => {
                   className="text-base md:text-lg"
                   onClick={handleHideLogin}
                 />
+              </div>
+              <div
+                className={`${
+                  loading ? "absolute" : "hidden"
+                } z-50 bg-white rounded-lg flex justify-center items-center top-0 left-0 right-0 bottom-0 `}
+              >
+                <Spinner />
               </div>
             </div>
           </form>
