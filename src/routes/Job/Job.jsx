@@ -1,4 +1,3 @@
-import companyPic from "../../assets/company_default.png"
 import { IoLocationSharp } from "react-icons/io5";
 import { HiInformationCircle } from "react-icons/hi2";
 import { IoPerson } from "react-icons/io5";
@@ -73,7 +72,7 @@ const Job = () => {
               <div className="bg-white p-4 rounded-xl space-y-3 border border-slate-300">
                 <div className="flex items-center gap-4">
                   <img
-                    src={companyPic}
+                    src={`http://localhost:8080${job.compimg}`}
                     alt=""
                     className="w-12 md:w-14 rounded-md"
                   />

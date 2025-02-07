@@ -1,5 +1,4 @@
 import SearchBar from "../../components/SearchBar/SearchBar";
-import companyPic from "../../assets/company_default.png";
 import { useNavigate } from "react-router-dom";
 import { IoLocationSharp } from "react-icons/io5";
 import { GiMoneyStack } from "react-icons/gi";
@@ -266,7 +265,7 @@ const Jobs = () => {
               >
                 <div className="flex gap-3 items-center">
                   <img
-                    src={companyPic}
+                    src={`http://localhost:8080${job.compimg}`}
                     alt=""
                     className="w-12 md:w-14 rounded-md"
                   />
