@@ -155,7 +155,7 @@ const Job = () => {
                   <h1 className="text-base font-bold opacity-85">
                     Job Description
                   </h1>
-                  <p className="text-sm">{job.desc}</p>
+                  <p className="text-sm">{job.jobdesc}</p>
                 </div>
               )}
 
