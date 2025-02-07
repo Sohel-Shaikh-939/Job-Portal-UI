@@ -468,7 +468,7 @@ const CandidateProfile = () => {
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-20 h-20 rounded-full overflow-hidden bg-contain">
                     <img
-                      src={`http://localhost:8080/Upload/${
+                      src={`http://localhost:8080${
                         candidateInfo.img
                       }`}
                       alt="PP"

@@ -51,7 +51,7 @@ const EmployerInterested = () => {
                 <div className="flex flex-col lg:flex-row gap-6 justify-between">
                   <div className="flex gap-5">
                     <img
-                      src={`http://localhost:8080/Upload/${
+                      src={`http://localhost:8080${
                         cand.img
                       }`}
                       alt=""

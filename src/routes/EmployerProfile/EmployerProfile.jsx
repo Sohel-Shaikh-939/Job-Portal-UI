@@ -73,7 +73,7 @@ const EmployerProfile = () => {
             <div className="flex flex-col items-center gap-4">
               <div className="m-auto h-32 w-32 rounded-full overflow-hidden">
                 <img
-                  src={`http://localhost:8080/Upload/${
+                  src={`http://localhost:8080${
                     employerInfo.compimg
                   }`}
                   alt=""

@@ -156,7 +156,7 @@ const Header = () => {
             ) : (
               <div className="w-12 h-12 rounded-full cursor-pointer overflow-hidden">
                 <img
-                  src={`http://localhost:8080/Upload/${
+                  src={`http://localhost:8080${
                     loginInfo.img
                   }`}
                   alt="Profile Pic"
@@ -173,7 +173,7 @@ const Header = () => {
               <div className="flex gap-3 items-center pb-3 border-b border-b-black border-opacity-25">
                 <div className="w-11 h-11 rounded-full cursor-pointer overflow-hidden">
                   <img
-                    src={`http://localhost:8080/Upload/${
+                    src={`http://localhost:8080${
                       loginInfo.img
                     }?n=${Date.now()}`}
                     alt=""
