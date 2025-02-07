@@ -37,9 +37,7 @@ const Employer = () => {
             <div className="flex items-center gap-4 px-9">
               <div className="w-12 h-12 rounded-md overflow-hidden">
                 <img
-                  src={`http://localhost:8080${
-                    employerInfo.compimg
-                  }`}
+                  src={`http://localhost:8080${employerInfo.compimg}`}
                   alt=""
                   className="h-full w-full"
                 />
@@ -101,9 +99,7 @@ const Employer = () => {
             <div className="flex items-center gap-4 px-9 relative">
               <div className="w-12 h-12 rounded-md">
                 <img
-                  src={`http://localhost:8080${
-                    employerInfo.compimg
-                  }`}
+                  src={`http://localhost:8080${employerInfo.compimg}`}
                   alt=""
                   className="h-full w-full"
                 />

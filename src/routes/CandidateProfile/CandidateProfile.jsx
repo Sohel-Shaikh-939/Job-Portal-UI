@@ -6,11 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { candidateSliceAction } from "./candidateSlice";
 import axios from "axios";
 import { headerSliceAction } from "../../components/Header/headerSlice";
+import Spinner from "../../components/Spinner/Spinner";
 
 const CandidateProfile = () => {
   const { candidateInfo } = useSelector((store) => store.Candidate);
   const [showEdit, setShowEdit] = useState(false);
   const [showPicEdit, setShowPicEdit] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,6 +42,7 @@ const CandidateProfile = () => {
   const handleProfileChange = async (e) => {
     e.preventDefault();
     hidePicSaveBTN();
+    setLoading(true);
     const res = await axios.post(
       "http://localhost:8080/changeprofilepic",
       e.currentTarget,
@@ -53,11 +57,12 @@ const CandidateProfile = () => {
       dispatch(headerSliceAction.setLoginInfo({img: res.data.img}));
       dispatch(candidateSliceAction.setCandidateInfo({img:res.data.img}));
     } 
+    setLoading(false);
   };
 
   const handleCandidateUpdate = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const form = e.target;
 
     const formData = {
@@ -97,6 +102,7 @@ const CandidateProfile = () => {
       top: 0,
       behavior: "smooth",
     });
+    setLoading(false);
     setShowEdit(false);
   };
 
@@ -468,9 +474,7 @@ const CandidateProfile = () => {
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-20 h-20 rounded-full overflow-hidden bg-contain">
                     <img
-                      src={`http://localhost:8080${
-                        candidateInfo.img
-                      }`}
+                      src={`http://localhost:8080${candidateInfo.img}`}
                       alt="PP"
                       className="w-full h-full"
                     />
@@ -661,6 +665,13 @@ const CandidateProfile = () => {
           </div>
         )}
       </section>
+      <div
+        className={`${
+          loading ? "absolute" : "hidden"
+        } z-50  rounded-lg flex justify-center items-center top-0 left-0 right-0 bottom-0 `}
+      >
+        <Spinner />
+      </div>
     </>
   );
 };

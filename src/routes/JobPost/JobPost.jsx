@@ -2,15 +2,19 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { homeSliceAction } from "../Home/homeSlice";
+import { useState } from "react";
+import Spinner from "../../components/Spinner/Spinner";
 
 const JobPost = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const {employerInfo} = useSelector(store => store.EmployerProfile);
 
   const handleJobPost = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
 
     const formData = {
@@ -48,6 +52,7 @@ const JobPost = () => {
 
     if(res.data.status) dispatch(homeSliceAction.setRepaint());
     navigate("/Employer/EmployerJobsList");
+    setLoading(false);
   }
 
     return (
@@ -460,11 +465,23 @@ const JobPost = () => {
                   ></textarea>
                 </div>
 
-                <input
+                <button
                   type="submit"
                   value="Post Job"
-                  className="bg-faintGreen w-full p-3 rounded-lg text-white font-semibold text-lg"
-                />
+                  className="bg-faintGreen w-full p-3 rounded-lg text-white font-semibold text-lg relative min-h-14"
+                >
+                  {loading ? (
+                    <div
+                      className={`${
+                        loading ? "absolute" : "hidden"
+                      } z-50  rounded-lg flex justify-center items-center top-0 left-0 right-0 bottom-0 `}
+                    >
+                      <Spinner setLoading={setLoading} />
+                    </div>
+                  ) : (
+                    "Post Job"
+                  )}
+                </button>
               </div>
             </form>
           </div>

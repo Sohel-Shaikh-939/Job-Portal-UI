@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { employerSliceAction } from "../Employer/employerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { IoPerson } from "react-icons/io5";
@@ -9,9 +9,11 @@ import { IoCopyOutline } from "react-icons/io5";
 import { IoLocationSharp } from "react-icons/io5";
 import axios from "axios";
 import { homeSliceAction } from "../Home/homeSlice";
+import Spinner from "../../components/Spinner/Spinner";
 
 const EmployerInterested = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const { employerInfo } = useSelector((store) => store.EmployerProfile);
 
     const handleCopy = (e) => {
@@ -19,6 +21,7 @@ const EmployerInterested = () => {
     };
 
     const handleReject = async (id) => {
+      setLoading(true);
       const res = await axios.patch("http://localhost:8080/reject",{id},{
         headers:{
           Authorization:localStorage.getItem("auth"),
@@ -27,6 +30,7 @@ const EmployerInterested = () => {
       if (res.data.status) {
         dispatch(homeSliceAction.setRepaint())
       }
+      setLoading(false);
     }
 
   useEffect(() => {
@@ -35,7 +39,14 @@ const EmployerInterested = () => {
 
   return (
     <>
-      <section className="p-0 py-4 md:p-8 w-full bg-[#F3F2EF]">
+      <section className="p-0 py-4 md:p-8 w-full bg-[#F3F2EF] relative">
+        <div
+          className={`${
+            loading ? "absolute" : "hidden"
+          } z-50 bg rounded-lg flex justify-center bg-[#1f1e1e29] items-center top-0 left-0 right-0 bottom-0 `}
+        >
+          <Spinner />
+        </div>
         <div className="w-full flex justify-between">
           <h1 className="font-semibold text-2xl md:text-3xl pl-8 md:pl-0">
             Interested Candidates ({employerInfo.appliedcandidates.length})
@@ -51,9 +62,7 @@ const EmployerInterested = () => {
                 <div className="flex flex-col lg:flex-row gap-6 justify-between">
                   <div className="flex gap-5">
                     <img
-                      src={`http://localhost:8080${
-                        cand.img
-                      }`}
+                      src={`http://localhost:8080${cand.img}`}
                       alt=""
                       className="w-16 rounded-md"
                     />

@@ -3,16 +3,18 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { employerProfileSliceAction } from "./employerProfileSlice";
 import { headerSliceAction } from "../../components/Header/headerSlice";
+import Spinner from "../../components/Spinner/Spinner";
 
 const EmployerProfile = () => {
   const [showSave, setShowSave] = useState(false);
   const [showPicEdit, setShowPicEdit] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { employerInfo } = useSelector((store) => store.EmployerProfile);
   const dispatch = useDispatch();
 
   const handleUpdateEmpProfile = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const form = e.target;
 
     const formData = {
@@ -30,6 +32,7 @@ const EmployerProfile = () => {
         },
       }
     );
+    setLoading(false);
     if (res.data.status) {
       dispatch(employerProfileSliceAction.setEmployerInfo(res.data.data));
       dispatch(headerSliceAction.setLoginInfo({ name: res.data.data.empname }));
@@ -39,6 +42,7 @@ const EmployerProfile = () => {
 
   const handleProfileChange = async (e) => {
     e.preventDefault();
+    setLoading(true);
     hidePicSaveBTN();
     const res = await axios.post(
       "http://localhost:8080/changecompanypic",
@@ -54,6 +58,7 @@ const EmployerProfile = () => {
       dispatch(headerSliceAction.setLoginInfo({ img: res.data.img }));
       dispatch(employerProfileSliceAction.setEmployerInfo({ compimg: res.data.img }));
     }
+    setLoading(false);
   };
 
     const showPicSaveBTN = () => {
@@ -69,13 +74,18 @@ const EmployerProfile = () => {
       <section className="w-full flex justify-center items-center p-8">
         <div className="bg-white p-8 rounded-md border border-slate-300 flex flex-col gap-6 w-full lg:w-[45%]">
           <h1 className="font-bold text-2xl opacity-75">Profile</h1>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 relative">
+            <div
+              className={`${
+                loading ? "absolute" : "hidden"
+              } z-50 bg rounded-lg flex justify-center items-center top-0 left-0 right-0 bottom-0 `}
+            >
+              <Spinner />
+            </div>
             <div className="flex flex-col items-center gap-4">
               <div className="m-auto h-32 w-32 rounded-full overflow-hidden">
                 <img
-                  src={`http://localhost:8080${
-                    employerInfo.compimg
-                  }`}
+                  src={`http://localhost:8080${employerInfo.compimg}`}
                   alt=""
                   className="h-full w-full"
                 />
@@ -102,7 +112,7 @@ const EmployerProfile = () => {
                 />
                 <input type="file" name="compic" id="pic" className="hidden" />
                 {showPicEdit && (
-                  <button 
+                  <button
                     type="submit"
                     className="py-1 px-3 bg-faintGreen rounded-lg outline-none border border-slate-300 text-whiten text-white"
                   >

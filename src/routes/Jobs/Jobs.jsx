@@ -12,6 +12,7 @@ import { jobsSliceAction } from "./jobsSlice";
 import { jobSliceAction } from "../Job/jobSlice";
 import store from "../../store";
 import { searchBarSliceAction } from "../../components/SearchBar/searchBarSlice";
+import Spinner from "../../components/Spinner/Spinner";
 
 const Jobs = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Jobs = () => {
   const { title, experience, location } = useSelector(store => store.SearchBar);
   const [showFilter, setShowFilter] = useState(false);
   const [filterApplied, setFilterApplied] = useState(false);
+  const [loading, setLoading] = useState(false);
   const initialRender = useRef(true);
   const form = useRef();
   const page = useRef(1);
@@ -34,6 +36,7 @@ const Jobs = () => {
     });
     dispatch(searchBarSliceAction.setSearch({inComponent: "jobs"}));
     async function data() {
+      setLoading(true);
       const res = await axios.get(
         `http://localhost:8080/getjobs?page=${page.current}${
           salary.current ? `&salary=${salary.current}` : ""
@@ -46,6 +49,7 @@ const Jobs = () => {
       if (res.data.status) {
         dispatch(jobsSliceAction.setJobs(res.data.data));
       }
+      setLoading(false);
     }
     if (!jobs.length) {
       data();
@@ -65,6 +69,7 @@ const Jobs = () => {
 
   const handleLoadMore = async () => {
     page.current++;
+    setLoading(true);
     const res = await axios.get(
       `http://localhost:8080/getjobs?page=${page.current}${
         salary.current ? `&salary=${salary.current}` : ""
@@ -76,6 +81,7 @@ const Jobs = () => {
     if (res.data.status) {
       dispatch(jobsSliceAction.setJobs(res.data.data));
     }
+    setLoading(false);
   };
 
   const handleFilterApplly = (e) => {
@@ -249,7 +255,7 @@ const Jobs = () => {
           </div>
 
           {/* Jobs Section */}
-          <div className="w-full space-y-3">
+          <div className="w-full space-y-3 relative">
             {jobs.map((job, ind) => (
               <div
                 className="px-2 py-7 bg-white rounded-2xl space-y-3 w-full min-w-fit overflow-hidden cursor-pointer shadow-2xl border border-slate-200 pl-8"
@@ -283,7 +289,10 @@ const Jobs = () => {
 
                 <div className="flex gap-2">
                   {job.shift.map((shift, ind) => (
-                    <div className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65" key={ind}>
+                    <div
+                      className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65"
+                      key={ind}
+                    >
                       {shift}
                     </div>
                   ))}
@@ -300,10 +309,20 @@ const Jobs = () => {
                 </div>
               ) : (
                 <div
-                  className="py-4 px-7 bg-faintGreen rounded-md hover:scale-105 text-white text-xl font-semibold m-auto w-fit transition-all duration-300"
+                  className="py-4 px-7 bg-faintGreen rounded-md hover:scale-105 text-white text-xl font-semibold m-auto w-fit transition-all duration-300 min-w-36 relative min-h-16"
                   onClick={handleLoadMore}
                 >
-                  Load More
+                  {loading ? (
+                    <div
+                      className={`${
+                        loading ? "absolute" : "hidden"
+                      } z-50 bg rounded-lg flex justify-center items-center top-0 left-0 right-0 bottom-0 `}
+                    >
+                      <Spinner />
+                    </div>
+                  ) : (
+                    "Load More"
+                  )}
                 </div>
               )}
             </div>

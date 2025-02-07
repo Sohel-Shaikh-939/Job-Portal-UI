@@ -9,11 +9,13 @@ import { FaLanguage } from "react-icons/fa";
 import { IoCopyOutline } from "react-icons/io5";
 import axios from "axios";
 import { empCandidateSliceAction } from "./employerCandSlice";
+import Spinner from "../../components/Spinner/Spinner";
 
 const EmployerCandidates = () => {
   const dispatch = useDispatch();
   const page = useRef(1);
   const [noMore,setNoMore] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { candidates } = useSelector((store) => store.EmpCandidate);
 
   const handleCopy = (e) => {
@@ -25,6 +27,7 @@ const EmployerCandidates = () => {
     dispatch(empCandidateSliceAction.setCandidatesEmpty());
     
     async function data() {
+      setLoading(true);
       const res = await axios.get(
         `http://localhost:8080/candidates?page=${page.current}`,
         {headers:{
@@ -34,9 +37,9 @@ const EmployerCandidates = () => {
       if (res.data.status) {
         dispatch(empCandidateSliceAction.setCandidates(res.data.data));
       }
+      setLoading(false);
     }
     data();
-
     return () => {
       // dispatch(empCandidateSliceAction.setCandidatesEmpty());
       page.current = 0;
@@ -45,6 +48,7 @@ const EmployerCandidates = () => {
 
   const handleLoadMore = async () => {
      page.current++;
+     setLoading(true);
     const res = await axios.get(
       `http://localhost:8080/candidates?page=${page.current}`,
       {
@@ -59,6 +63,7 @@ const EmployerCandidates = () => {
     if (res.data.status) {
       dispatch(empCandidateSliceAction.setCandidates(res.data.data));
     }
+    setLoading(false);
   }
 
   return (
@@ -69,7 +74,7 @@ const EmployerCandidates = () => {
             Candidates
           </h1>
         </div>
-        <div className="py-12 space-y-4 ">
+        <div className="py-12 space-y-4 relative">
           {candidates.length ? (
             <>
               {candidates.map((candidate, ind) => (
@@ -159,10 +164,20 @@ const EmployerCandidates = () => {
                 </div>
               ) : (
                 <div
-                  className="py-2 px-4 md:py-4 md:px-7 bg-faintGreen rounded-md hover:scale-105 text-white text-xl font-semibold m-auto w-fit transition-all duration-300"
+                  className="py-2 px-4 md:py-4 md:px-7 bg-faintGreen rounded-md hover:scale-105 text-white text-xl font-semibold m-auto w-fit transition-all duration-300 min-w-36 relative min-h-16"
                   onClick={handleLoadMore}
                 >
-                  Load More
+                  {loading ? (
+                    <div
+                      className={`${
+                        loading ? "absolute" : "hidden"
+                      } z-50  rounded-lg flex justify-center items-center top-0 left-0 right-0 bottom-0 `}
+                    >
+                      <Spinner setLoading={setLoading} />
+                    </div>
+                  ) : (
+                    "Load More"
+                  )}
                 </div>
               )}
             </>
@@ -171,6 +186,13 @@ const EmployerCandidates = () => {
               No Candidates
             </div>
           )}
+          <div
+            className={`${
+              loading ? "absolute" : "hidden"
+            } z-50  rounded-lg flex justify-center items-center top-0 left-0 right-0 bottom-0 `}
+          >
+            <Spinner setLoading={setLoading} />
+          </div>
         </div>
       </section>
     </>
