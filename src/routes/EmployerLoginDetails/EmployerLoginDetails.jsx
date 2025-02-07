@@ -2,13 +2,17 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { homeSliceAction } from "../Home/homeSlice";
+import { useState } from "react";
+import Spinner from "../../components/Spinner/Spinner";
 
 const EmployerLoginDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading,setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
 
     const formData = {
@@ -25,7 +29,7 @@ const EmployerLoginDetails = () => {
         },
       }
     );
-
+    setLoading(false);
     if (res.data.status) {
       dispatch(homeSliceAction.setRepaint())
       navigate("/Employer");
@@ -59,7 +63,7 @@ const EmployerLoginDetails = () => {
                   </h1>
                   <input
                     type="text"
-                    name="compname" 
+                    name="compname"
                     placeholder="eg. Swiggy"
                     className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
                   />
@@ -76,11 +80,23 @@ const EmployerLoginDetails = () => {
                     className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
                   />
                 </div> */}
-                <input
+                <button
                   type="submit"
                   value="Create Account"
-                  className="bg-faintGreen w-full p-3 rounded-lg text-white font-semibold text-lg"
-                />
+                  className="relative bg-faintGreen w-full min-h-16 p-3 rounded-lg text-white font-semibold text-lg"
+                >
+                  {loading ? (
+                    <div
+                      className={`${
+                        loading ? "absolute" : "hidden"
+                      } z-50 bg rounded-lg flex justify-center items-center top-0 left-0 right-0 bottom-0 `}
+                    >
+                      <Spinner />
+                    </div>
+                  ) : (
+                    "Create Account"
+                  )}
+                </button>
               </div>
             </div>
           </form>

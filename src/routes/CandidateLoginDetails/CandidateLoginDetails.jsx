@@ -2,15 +2,18 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { homeSliceAction } from "../Home/homeSlice";
+import { useState } from "react";
+import Spinner from "../../components/Spinner/Spinner";
 
 const CandidateLoginDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading,setLoading] = useState(false);
 
   const handleCandidateDetails = async (e) => {
     e.preventDefault();
     const form = e.target;
-
+    setLoading(true);
     const formData = {
       candname: form.candname.value,
       contactmail: form.contactmail.value,
@@ -42,7 +45,7 @@ const CandidateLoginDetails = () => {
         },
       }
     );
-
+    setLoading(false);
     if (res.data.status) {
       dispatch(homeSliceAction.setRepaint());
       navigate("/Jobs");
@@ -433,11 +436,23 @@ const CandidateLoginDetails = () => {
                   />
                 </div>
 
-                <input
+                <button
                   type="submit"
                   value="Create Account"
-                  className="bg-faintGreen w-full p-3 rounded-lg text-white font-semibold text-lg"
-                />
+                  className="relative bg-faintGreen w-full min-h-16 p-3 rounded-lg text-white font-semibold text-lg"
+                >
+                  {loading ? (
+                    <div
+                      className={`${
+                        loading ? "absolute" : "hidden"
+                      } z-50 bg rounded-lg flex justify-center items-center top-0 left-0 right-0 bottom-0 `}
+                    >
+                      <Spinner />
+                    </div>
+                  ) : (
+                    "Create Account"
+                  )}
+                </button>
               </div>
             </div>
           </form>
