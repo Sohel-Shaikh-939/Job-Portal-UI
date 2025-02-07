@@ -158,7 +158,7 @@ const Header = () => {
                 <img
                   src={`http://localhost:8080/Upload/${
                     loginInfo.img
-                  }?n=${Date.now()}`}
+                  }`}
                   alt="Profile Pic"
                   onClick={handleShowProfile}
                   className="h-full w-full"

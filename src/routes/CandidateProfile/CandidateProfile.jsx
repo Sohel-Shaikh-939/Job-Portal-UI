@@ -470,7 +470,7 @@ const CandidateProfile = () => {
                     <img
                       src={`http://localhost:8080/Upload/${
                         candidateInfo.img
-                      }?n=${Date.now()}`}
+                      }`}
                       alt="PP"
                       className="w-full h-full"
                     />

@@ -39,7 +39,7 @@ const Employer = () => {
                 <img
                   src={`http://localhost:8080/Upload/${
                     employerInfo.compimg
-                  }?n=${Date.now()}`}
+                  }`}
                   alt=""
                   className="h-full w-full"
                 />
@@ -103,7 +103,7 @@ const Employer = () => {
                 <img
                   src={`http://localhost:8080/Upload/${
                     employerInfo.compimg
-                  }?n=${Date.now()}`}
+                  }`}
                   alt=""
                   className="h-full w-full"
                 />

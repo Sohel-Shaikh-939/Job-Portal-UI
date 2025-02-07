@@ -75,7 +75,7 @@ const EmployerProfile = () => {
                 <img
                   src={`http://localhost:8080/Upload/${
                     employerInfo.compimg
-                  }?n=${Date.now()}`}
+                  }`}
                   alt=""
                   className="h-full w-full"
                 />

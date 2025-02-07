@@ -53,7 +53,7 @@ const EmployerInterested = () => {
                     <img
                       src={`http://localhost:8080/Upload/${
                         cand.img
-                      }?n=${Date.now()}`}
+                      }`}
                       alt=""
                       className="w-16 rounded-md"
                     />
