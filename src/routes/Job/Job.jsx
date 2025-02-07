@@ -150,7 +150,7 @@ const Job = () => {
               </div>
 
               {/* Second Div For Job Description */}
-              {job.desc && (
+              {job.jobdesc && (
                 <div className="bg-white rounded-xl p-4 space-y-3 border border-slate-300">
                   <h1 className="text-base font-bold opacity-85">
                     Job Description
