@@ -155,7 +155,7 @@ const EmployerInterested = () => {
                   </div>
                   <button
                     className="p-2 bg-white border border-slate-500 rounded-md hover:scale-110 transition-all duration-300"
-                    value={"hhhhhh"}
+                    value={cand.contactmail}
                     onClick={handleCopy}
                   >
                     <IoCopyOutline value="xyz.com" />
