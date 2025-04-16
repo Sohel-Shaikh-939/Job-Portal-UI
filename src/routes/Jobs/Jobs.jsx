@@ -1,4 +1,5 @@
 import SearchBar from "../../components/SearchBar/SearchBar";
+import { CiBookmark } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import { IoLocationSharp } from "react-icons/io5";
 import { GiMoneyStack } from "react-icons/gi";
@@ -26,6 +27,7 @@ const Jobs = () => {
   const page = useRef(1);
   const salary = useRef(0);
   const sort = useRef(0);
+  const category = useRef("");
   const [noMore, setNoMore] = useState(false);
 
   useEffect(() => {
@@ -43,7 +45,7 @@ const Jobs = () => {
           title ? `&title=${title}` : ""
         }${experience ? `&experience=${experience}` : ""}${
           location ? `&location=${location}` : ""
-        }`
+        }${`&category=${category.current}`}`
       );
       if (res.data.status) {
         dispatch(jobsSliceAction.setJobs(res.data.data));
@@ -72,7 +74,11 @@ const Jobs = () => {
     const res = await axios.get(
       `http://localhost:8080/getjobs?page=${page.current}${
         salary.current ? `&salary=${salary.current}` : ""
-      }${sort.current !== 0 ? `&sort=${sort.current}` : ""}${title ? `&title=${title}`: ""}${experience ? `&experience=${experience}`: ""}${location ? `&location=${location}`: ""}`
+      }${sort.current !== 0 ? `&sort=${sort.current}` : ""}${
+        title ? `&title=${title}` : ""
+      }${experience ? `&experience=${experience}` : ""}${
+        location ? `&location=${location}` : ""
+      }${`&category=${category.current}`}`
     );
     if (!res.data.count) {
       setNoMore(true);
@@ -118,10 +124,48 @@ const Jobs = () => {
     setShowFilter(false);
   };
 
+  const handleCategoryChange= (e) => {
+      category.current = e.target.value;
+      setNoMore(false);
+      page.current = 0;
+      dispatch(jobsSliceAction.setJobsEmpty());
+      handleLoadMore();
+  }
+
+  const handleBookMark = (id) => {
+    let bm = localStorage.getItem("bookmarks");
+    if (bm) {
+      let arr = JSON.parse(bm);
+      if (!arr.includes(id)) {
+        arr.unshift(id);
+      }
+      localStorage.setItem("bookmarks",JSON.stringify(arr));
+    } else {
+      localStorage.setItem("bookmarks", JSON.stringify([id]));
+    }
+  }
+
   return (
     <>
-      <div className="flex justify-center items-center pl-10 ">
+      <div className="flex justify-center items-center pl-10 md:mb-2">
         <SearchBar></SearchBar>
+      </div>
+      <div className="flex justify-center py-5">
+        <select
+          name="field"
+          className="outline-faintGreen rounded-md py-1 px-4 border border-slate-300 opacity-80"
+          onChange={handleCategoryChange}
+        >
+          <option value="">All</option>
+          <option value="Driving">Driving</option>
+          <option value="Delivery">Delivery</option>
+          <option value="Healthcare">HealthCare</option>
+          <option value="Computer">Computer</option>
+          <option value="Cooking">Cooking</option>
+          <option value="Security Operation">Security Operation</option>
+          <option value="Sales">Sales</option>
+          <option value="Accounting">Accounting</option>
+        </select>
       </div>
 
       <div className="bg-faintGray flex justify-center items-center w-full px-4 lg:px-56">
@@ -256,48 +300,60 @@ const Jobs = () => {
           {/* Jobs Section */}
           <div className="w-full space-y-3 relative">
             {jobs.map((job, ind) => (
-              <div
-                className="px-2 py-7 bg-white rounded-2xl space-y-3 w-full min-w-fit overflow-hidden cursor-pointer shadow-2xl border border-slate-200 pl-8"
-                onClick={() => {
-                  handleShowJobDesc(job);
-                }}
-                key={ind}
-              >
-                <div className="flex gap-3 items-center">
-                  <img
-                    src={`http://localhost:8080${job.compimg}`}
-                    alt=""
-                    className="w-12 md:w-14 rounded-md"
-                  />
-                  <div>
-                    <div className="text-lg font-semibold">{job.jtitle}</div>
-                    <div className="text-sm opacity-60">{job.compname}</div>
-                  </div>
-                </div>
-
-                <div className="pl-6">
-                  <div className="opacity-60 flex items-center gap-2">
-                    <IoLocationSharp className="opacity-80" />
-                    {job.location}
-                  </div>
-                  <div className="opacity-60 flex items-center gap-2">
-                    <GiMoneyStack className="opacity-90" />${job.minsal} - $
-                    {job.maxsal} monthly
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  {job.shift.map((shift, ind) => (
-                    <div
-                      className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65"
-                      key={ind}
-                    >
-                      {shift}
+              <div className="relative" key={ind}>
+                <div
+                  className="px-2 py-7 bg-white rounded-2xl space-y-3 w-full min-w-fit overflow-hidden cursor-pointer shadow-2xl border border-slate-200 pl-8 "
+                  onClick={() => {
+                    handleShowJobDesc(job);
+                  }}
+                  key={ind}
+                >
+                  <div className="flex gap-3 items-center">
+                    <div className="w-12 h-12 md:w-14 md:h-14 overflow-hidden">
+                      <img
+                        src={`http://localhost:8080${job.compimg}`}
+                        alt=""
+                        className="h-full w-full rounded-md"
+                      />
                     </div>
-                  ))}
-                  <div className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65">
-                    Min. {job.experience}
+                    <div>
+                      <div className="text-lg font-semibold">{job.jtitle}</div>
+                      <div className="text-sm opacity-60">{job.compname}</div>
+                    </div>
                   </div>
+
+                  <div className="pl-6">
+                    <div className="opacity-60 flex items-center gap-2">
+                      <IoLocationSharp className="opacity-80" />
+                      {job.location}
+                    </div>
+                    <div className="opacity-60 flex items-center gap-2">
+                      <GiMoneyStack className="opacity-90" />${job.minsal} - $
+                      {job.maxsal} monthly
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    {job.shift.map((shift, ind) => (
+                      <div
+                        className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65"
+                        key={ind}
+                      >
+                        {shift}
+                      </div>
+                    ))}
+                    <div className="bg-[#76767846] rounded-md px-2 py-1 text-xs opacity-65">
+                      Min. {job.experience}
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="absolute top-5 right-5 p-2 bg-slate-100 rounded-full cursor-pointer hover:scale-110 transition"
+                  onClick={() => {
+                    handleBookMark(job.id);
+                  }}
+                >
+                  <CiBookmark className="text-2xl" />
                 </div>
               </div>
             ))}

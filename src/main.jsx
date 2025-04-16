@@ -18,6 +18,11 @@ import EmployerCandidates from './routes/EmployerCandidates/EmployerCandidates'
 import EmployerInterested from './routes/EmployerInterested/EmployerInterested'
 import JobPost from './routes/JobPost/JobPost'
 import EmployerProfile from './routes/EmployerProfile/EmployerProfile'
+import BookMarks from './routes/BookMarks/BookMarks'
+import Companies from './routes/Companies/Companies'
+import Company from './routes/Company/Company'
+import MyJobs from './routes/MyJobs/MyJobs'
+import Interviews from './routes/Interviews/Interviews'
 
 const route = createBrowserRouter([
   {
@@ -35,6 +40,22 @@ const route = createBrowserRouter([
       {
         path: "/Job",
         element: <Job />,
+      },
+      {
+        path: "/Companies",
+        element: <Companies />,
+      },
+      {
+        path: "/Company",
+        element: <Company />,
+      },
+      {
+        path: "/BookMarks",
+        element: <BookMarks />,
+      },
+      {
+        path: "/MyJobs",
+        element: <MyJobs />,
       },
       {
         path: "/CandidateLogin",
@@ -71,6 +92,10 @@ const route = createBrowserRouter([
           {
             path: "/Employer/EmployerInterested",
             element: <EmployerInterested />,
+          },
+          {
+            path: "/Employer/Interviews",
+            element: <Interviews />,
           },
           {
             path: "/Employer/Profile",

@@ -224,7 +224,7 @@ const JobPost = () => {
                     className="outline-faintGreen rounded-md py-1 px-4 border border-slate-400"
                     required
                   >
-                    <option value="Other">Any</option>
+                    <option value="Any">Any</option>
                     <option value="Driving">Driving</option>
                     <option value="Delivery">Delivery</option>
                     <option value="Healthcare">HealthCare</option>

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { PiBagSimpleFill } from "react-icons/pi";
 import { RiUserSearchFill } from "react-icons/ri";
 import { SiGoogleforms } from "react-icons/si";
+import { BsPersonVideo3 } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { headerSliceAction } from "../../components/Header/headerSlice";
 import { RxCross1 } from "react-icons/rx";
@@ -67,6 +68,9 @@ const Employer = () => {
                     selectedEmployerPage === "candidates" &&
                     "bg-faintGreen text-white"
                   }`}
+                  onClick={() => {
+                    dispatch(employerSliceAction.setCurrentPage("candidates"));
+                  }}
                 >
                   <RiUserSearchFill className="text-lg" />
                   Candidates
@@ -85,6 +89,21 @@ const Employer = () => {
                 >
                   <SiGoogleforms className="text-lg" />
                   Interested
+                </li>
+              </Link>
+
+              <Link to="/Employer/Interviews">
+                <li
+                  className={`font-bold opacity-70 flex gap-3 items-center py-3 px-9 ${
+                    selectedEmployerPage === "Interviews" &&
+                    "bg-faintGreen text-white"
+                  }`}
+                  onClick={() => {
+                    dispatch(employerSliceAction.setCurrentPage("Interviews"));
+                  }}
+                >
+                  <BsPersonVideo3 className="text-lg" />
+                  Interviews
                 </li>
               </Link>
             </ul>
@@ -150,6 +169,22 @@ const Employer = () => {
                 >
                   <SiGoogleforms className="text-lg" />
                   Interested
+                </li>
+              </Link>
+
+              <Link to="/Employer/Interviews">
+                <li
+                  className={`font-bold opacity-70 flex gap-3 items-center py-3 px-9 ${
+                    selectedEmployerPage === "Interviews" &&
+                    "bg-faintGreen text-white"
+                  }`}
+                  onClick={() => {
+                    dispatch(headerSliceAction.setShowEmployerOpt(false));
+                    dispatch(employerSliceAction.setCurrentPage("Interviews"));
+                  }}
+                >
+                  <BsPersonVideo3 className="text-lg" />
+                  Interviews
                 </li>
               </Link>
             </ul>

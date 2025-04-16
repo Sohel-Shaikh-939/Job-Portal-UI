@@ -1,11 +1,13 @@
 import logo from "../../assets/logo.webp";
 import { PiListBold } from "react-icons/pi";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
+import { IoHomeOutline } from "react-icons/io5";
 import { PiBagSimple } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import { CiLogout } from "react-icons/ci";
 import { IoPerson } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
+import { CiBookmark } from "react-icons/ci";
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -132,12 +134,29 @@ const Header = () => {
           {!isInEmployerSection && (
             <ul className="hidden md:flex space-x-8 text-slate-900 text-base leading-10  font-semibold  ">
               <li>
+                <Link to="/" className="cursor-pointer">
+                  Home
+                </Link>
+              </li>
+              <li>
                 <Link to="/Jobs" className="cursor-pointer">
                   Jobs
                 </Link>
               </li>
               <li>
-                <Link className="cursor-pointer">Companies</Link>
+                <Link to="/Companies" className="cursor-pointer">
+                  Companies
+                </Link>
+              </li>
+              <li>
+                <Link to="/BookMarks" className="cursor-pointer">
+                  BookMarks
+                </Link>
+              </li>
+              <li>
+                <Link to="/MyJobs" className="cursor-pointer">
+                  MyJobs
+                </Link>
               </li>
             </ul>
           )}
@@ -156,9 +175,7 @@ const Header = () => {
             ) : (
               <div className="w-12 h-12 rounded-full cursor-pointer overflow-hidden">
                 <img
-                  src={`http://localhost:8080${
-                    loginInfo.img
-                  }`}
+                  src={`http://localhost:8080${loginInfo.img}`}
                   alt="Profile Pic"
                   onClick={handleShowProfile}
                   className="h-full w-full"
@@ -250,15 +267,33 @@ const Header = () => {
           <div>
             <ul className="space-y-1 text-slate-900 text-base leading-10 py-5 font-semibold  ">
               <li onClick={handleCloseOptClick}>
+                <Link to="/" className="flex gap-3 items-center pl-6">
+                  <IoHomeOutline className="text-xl" />
+                  Home
+                </Link>
+              </li>
+              <li onClick={handleCloseOptClick}>
                 <Link to="/Jobs" className="flex gap-3 items-center pl-6">
                   <HiOutlineBuildingOffice2 className="text-xl" />
                   Jobs
                 </Link>
               </li>
               <li onClick={handleCloseOptClick}>
-                <Link className="flex gap-3 items-center pl-6">
+                <Link to="/Companies" className="flex gap-3 items-center pl-6">
                   <PiBagSimple className="text-xl" />
                   Companies
+                </Link>
+              </li>
+              <li onClick={handleCloseOptClick}>
+                <Link to="/Companies" className="flex gap-3 items-center pl-6">
+                  <CiBookmark className="text-xl" />
+                  BookMarks
+                </Link>
+              </li>
+              <li onClick={handleCloseOptClick}>
+                <Link to="/Companies" className="flex gap-3 items-center pl-6">
+                  <CiBookmark className="text-xl" />
+                  MyJobs
                 </Link>
               </li>
             </ul>

@@ -3,6 +3,8 @@ import { HiInformationCircle } from "react-icons/hi2";
 import { IoPerson } from "react-icons/io5";
 import { HiAcademicCap } from "react-icons/hi2";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
+import { FcVoicePresentation } from "react-icons/fc";
+
 import { PiBagSimpleFill } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -14,13 +16,22 @@ const Job = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showWarn,setShowWarn] = useState(false);
+  const [showApplyPopup, setShowApplyPopup] = useState(false);
+  const [showResumeWarn, setShowResumeWarn] = useState(false);
   const {job} = useSelector(store => store.Job);
   const {loginInfo} = useSelector(store => store.Header);
   const { candidateInfo } = useSelector((store) => store.Candidate);
   const appliedTo = candidateInfo.applied || [];
 
-  const handleApply = async (id) => {
+  const handleApply = async (e) => {
+    e.preventDefault();
+    if (!e.target.resume.value) {
+      setShowResumeWarn(true);
+      return;
+    }
+    
     if(!(loginInfo.Authenticated && (loginInfo.role === "candidate"))) {
+      setShowApplyPopup(false);
       setShowWarn(true);
       setTimeout(() => {
         setShowWarn(false);
@@ -30,13 +41,14 @@ const Job = () => {
 
     const res = await axios.post(
       "http://localhost:8080/apply",
-      {id},
+      e.currentTarget,
       {
         headers: {
           Authorization: localStorage.getItem("auth"),
         },
       }
     );
+    setShowApplyPopup(false);
     if (res.data.status) {
       dispatch(homeSliceAction.setRepaint());
     }
@@ -57,25 +69,22 @@ const Job = () => {
       <>
         {/* This is wrapper */}
         <div
-          className={`fixed top-[30%] bg-faintGreen border border-slate-400 text-2xl text-white p-2 rounded-md px-10 md:left-[42%] left-[25%] transition-all duration-500 ${
+          className={`fixed top-[30%] z-50 bg-faintGreen border border-slate-400 text-2xl text-white p-2 rounded-md px-10 md:left-[42%] left-[25%] transition-all duration-500 ${
             showWarn ? "block" : "hidden"
           }`}
         >
-          {" "}
-          Please Login{" "}
+          Please Login
         </div>
         {job.jtitle && (
           <section className="w-full py-5 px-2 flex justify-center bg-faintGray">
             {/* Parent Div for all information div */}
             <div className="space-y-4 min-w-[80%]">
               {/* First div for information */}
-              <div className="bg-white p-4 rounded-xl space-y-3 border border-slate-300">
+              <div className="bg-white p-4 rounded-xl space-y-3 border border-slate-300 relative">
                 <div className="flex items-center gap-4">
-                  <img
-                    src={`http://localhost:8080${job.compimg}`}
-                    alt=""
-                    className="w-12 md:w-14 rounded-md"
-                  />
+                  <div className="w-12 h-12 md:w-14 md:h-14 overflow-hidden rounded-md">
+                    <img src={`http://localhost:8080${job.compimg}`} alt="" className="h-full w-full"/>
+                  </div>
                   <div>
                     <div className="text-lg font-semibold">{job.jtitle}</div>
                     <div className="text-base opacity-70">{job.compname}</div>
@@ -132,7 +141,7 @@ const Job = () => {
                   </div>
                 </div>
 
-                {appliedTo.includes(job.id) ? (
+                {appliedTo.map((appl) => appl.job[0].id).includes(job.id) ? (
                   <div className="w-full bg-faintGreen text-white p-3 rounded-xl text-center">
                     🎊 Applied 🎊
                   </div>
@@ -140,11 +149,60 @@ const Job = () => {
                   <button
                     className="w-full bg-faintGreen text-white p-3 rounded-xl"
                     onClick={() => {
-                      handleApply(job.id);
+                      setShowApplyPopup(true);
                     }}
                   >
                     Apply for job
                   </button>
+                )}
+                {showApplyPopup && (
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-5 pt-0 border border-faintGreen rounded-lg items-center bg-white">
+                    <form
+                      className="space-y-6"
+                      encType="multipart/form-data"
+                      onSubmit={handleApply}
+                    >
+                      <input
+                        type="text"
+                        name="id"
+                        defaultValue={job.id}
+                        className="hidden"
+                        readOnly
+                      />
+                      <div className="cursor-pointer relative flex items-center gap-2">
+                        Upload Resume
+                        <FcVoicePresentation className="text-xl" />
+                        <input
+                          type="file"
+                          name="resume"
+                          className="h-full w-full absolute left-0 right-0 top-0 bottom-0 opacity-0 cursor-pointer"
+                        />
+                        {showResumeWarn && (
+                          <div className="absolute -bottom-3 text-xs text-red-600">
+                            Please select resume!
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="flex gap-3">
+                        <button
+                          className="bg-faintGreen text-white font-semibold px-4 py-2 md:py-2 md:px-9 rounded-md border border-slate-300"
+                          type="submit"
+                        >
+                          Apply
+                        </button>
+                        <div
+                          className="bg-red-500 text-white font-semibold px-4 py-2 md:py-2 md:px-9 rounded-md border border-slate-300 cursor-pointer"
+                          onClick={() => {
+                            setShowApplyPopup(false);
+                            setShowResumeWarn(false);
+                          }}
+                        >
+                          Cancel
+                        </div>
+                      </div>
+                    </form>
+                  </div>
                 )}
               </div>
 

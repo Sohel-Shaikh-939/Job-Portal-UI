@@ -8,6 +8,9 @@ import jobsSlice from "../routes/Jobs/jobsSlice";
 import jobSlice from "../routes/Job/jobSlice";
 import searchBarSlice from "../components/SearchBar/searchBarSlice";
 import empCandidateSlice from "../routes/EmployerCandidates/employerCandSlice";
+import bookMarkSlice from "../routes/BookMarks/bookMarkSlice";
+import companiesSlice from "../routes/Companies/companiesSlice";
+import companySlice from "../routes/Company/companySlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +23,9 @@ const store = configureStore({
     Job: jobSlice.reducer,
     SearchBar: searchBarSlice.reducer,
     EmpCandidate: empCandidateSlice.reducer,
+    BookMark: bookMarkSlice.reducer,
+    Companies: companiesSlice.reducer,
+    Company: companySlice.reducer,
   },
 });
 

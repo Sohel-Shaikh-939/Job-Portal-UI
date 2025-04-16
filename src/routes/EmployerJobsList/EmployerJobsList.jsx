@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { employerSliceAction } from "../Employer/employerSlice";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,9 +15,21 @@ const EmployerJobsList = () => {
   const { currentPage } = useSelector((store) => store.Employer);
 
   useEffect(() => {
-      if (currentPage === "interested") {
-        navigate("/Employer/EmployerInterested");
+
+      switch (currentPage) {
+        case "interested":
+          navigate("/Employer/EmployerInterested");
+          break;
+
+        case "candidates":
+          navigate("/Employer/EmployerCandidates");
+          break;
+
+        case "Interviews":
+          navigate("/Employer/Interviews");
+          break;
       }
+      
     dispatch(employerSliceAction.setSelectedEmployerPage("jobs"));
     window.scrollTo({
       top: 0,
