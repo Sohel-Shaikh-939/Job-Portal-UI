@@ -8,6 +8,7 @@ import { CiLogout } from "react-icons/ci";
 import { IoPerson } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
 import { CiBookmark } from "react-icons/ci";
+import { GrSchedules } from "react-icons/gr";
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -274,25 +275,25 @@ const Header = () => {
               </li>
               <li onClick={handleCloseOptClick}>
                 <Link to="/Jobs" className="flex gap-3 items-center pl-6">
-                  <HiOutlineBuildingOffice2 className="text-xl" />
+                  <PiBagSimple className="text-xl" />
                   Jobs
                 </Link>
               </li>
               <li onClick={handleCloseOptClick}>
                 <Link to="/Companies" className="flex gap-3 items-center pl-6">
-                  <PiBagSimple className="text-xl" />
+                  <HiOutlineBuildingOffice2 className="text-xl" />
                   Companies
                 </Link>
               </li>
               <li onClick={handleCloseOptClick}>
-                <Link to="/Companies" className="flex gap-3 items-center pl-6">
+                <Link to="/BookMarks" className="flex gap-3 items-center pl-6">
                   <CiBookmark className="text-xl" />
                   BookMarks
                 </Link>
               </li>
               <li onClick={handleCloseOptClick}>
-                <Link to="/Companies" className="flex gap-3 items-center pl-6">
-                  <CiBookmark className="text-xl" />
+                <Link to="/MyJobs" className="flex gap-3 items-center pl-6">
+                  <GrSchedules className="text-xl opacity-85" />
                   MyJobs
                 </Link>
               </li>

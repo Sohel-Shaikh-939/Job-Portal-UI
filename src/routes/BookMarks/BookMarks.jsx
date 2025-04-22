@@ -59,7 +59,7 @@ const BookMarks = () => {
       ) : (
         <>
           {savedJobs.length ? (
-            <div className="m-auto flex justify-center items-center md:py-9 font-semibold text-3xl opacity-75">
+            <div className="m-auto flex justify-center text-center items-center md:py-9 font-semibold text-2xl md:text-3xl opacity-75">
               Your BookMarks (Saved Jobs)
             </div>
           ) : (
@@ -128,7 +128,7 @@ const BookMarks = () => {
                 </div>
               ))
             ) : (
-              <div className="absolute top-[50%] left-[10%] md:left-[20%] lg:left-[35%] text-3xl font-bold opacity-65">
+              <div className="absolute w-full px-1 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl md:text-3xl text-center font-bold opacity-65">
                 There are No Saved Jobs
               </div>
             )}

@@ -173,12 +173,12 @@ const MyJobs = () => {
               </div>
             </div>
           ) : (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold text-4xl">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold text-center text-2xl md:text-3xl">
               There are no applied jobs
             </div>
           )
         ) : (
-          <div className="absolute text-3xl font-semibold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute text-2xl md:text-3xl font-semibold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
             Login to see your job status
           </div>
         )}
