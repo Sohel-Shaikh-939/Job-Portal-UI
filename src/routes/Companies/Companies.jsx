@@ -102,7 +102,7 @@ const Companies = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {companies.map((company, ind) => (
                   <div
-                    className="border border-slate-300 rounded-lg p-7 space-y-4 shadow-xl md:min-w-[270px] cursor-pointer hover:scale-105 transition"
+                    className="border border-slate-300 rounded-lg p-7 space-y-4 shadow-xl min-w-[300px] md:min-w-[270px] cursor-pointer hover:scale-105 transition"
                     key={ind}
                     onClick={() => {
                       handleShowCompanyDesc(company);
