@@ -1,9 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './routes/App'
 import { createBrowserRouter } from 'react-router-dom'
 import { RouterProvider } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import './index.css'
+import App from './routes/App'
 import Home from "./routes/Home/Home"
 import Jobs from './routes/Jobs/Jobs'
 import Job from './routes/Job/Job'
@@ -11,7 +12,6 @@ import CandidateLoginDetails from './routes/CandidateLoginDetails/CandidateLogin
 import CandidateProfile from './routes/CandidateProfile/CandidateProfile'
 import EmployerLoginDetails from './routes/EmployerLoginDetails/EmployerLoginDetails'
 import Employer from './routes/Employer/Employer'
-import { Provider } from 'react-redux'
 import store from './store'
 import EmployerJobsList from './routes/EmployerJobsList/EmployerJobsList'
 import EmployerCandidates from './routes/EmployerCandidates/EmployerCandidates'
@@ -23,6 +23,7 @@ import Companies from './routes/Companies/Companies'
 import Company from './routes/Company/Company'
 import MyJobs from './routes/MyJobs/MyJobs'
 import Interviews from './routes/Interviews/Interviews'
+import ResumeScore from './routes/ResumeScore/ResumeScore'
 
 const route = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const route = createBrowserRouter([
       {
         path: "/MyJobs",
         element: <MyJobs />,
+      },
+      {
+        path: "/ResumeScore",
+        element: <ResumeScore />,
       },
       {
         path: "/CandidateLogin",

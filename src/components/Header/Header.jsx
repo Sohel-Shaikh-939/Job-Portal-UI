@@ -159,6 +159,11 @@ const Header = () => {
                   MyJobs
                 </Link>
               </li>
+              <li>
+                <Link to="/ResumeScore" className="cursor-pointer">
+                   Resume Score
+                </Link>
+              </li>
             </ul>
           )}
         </div>
@@ -295,6 +300,12 @@ const Header = () => {
                 <Link to="/MyJobs" className="flex gap-3 items-center pl-6">
                   <GrSchedules className="text-xl opacity-85" />
                   MyJobs
+                </Link>
+              </li>
+              <li onClick={handleCloseOptClick}>
+                <Link to="/ResumeScore" className="flex gap-3 items-center pl-6">
+                  <GrSchedules className="text-xl opacity-85" />
+                  Resume Score
                 </Link>
               </li>
             </ul>
